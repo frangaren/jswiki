@@ -6,7 +6,10 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-    res.json({reply: 'Hello World'});
+    const worker = req.app.get('worker');
+    worker.hello('World').then((reply)=>{
+        res.json({reply: reply});
+    });
 });
 
 module.exports = router;
