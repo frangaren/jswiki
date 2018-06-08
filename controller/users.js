@@ -18,3 +18,8 @@ exports.create = async function (username, email, name, password) {
     user = await user.save();
     return user;
 }
+
+exports.retrieve = async function (id) {
+    const user = await User.findById(id).exec();
+    return user;
+}
