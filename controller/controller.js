@@ -2,4 +2,4 @@
 
 const path = require('path');
 
-exports.user = require(path.join(__dirname, 'user.js'));
+exports.users = require(path.join(__dirname, 'users.js'));

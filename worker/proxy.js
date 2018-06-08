@@ -52,10 +52,12 @@ function WorkerProxy(worker) {
     target.path = [];
     const handler = {
         apply: function (target, that, args) {
-            return target.worker.schedule({
+            const outcome = target.worker.schedule({
                 path: target.path,
                 args: args
             });
+            target.path = [];
+            return outcome;
         },
         get: function (target, property, receiver) {
             target.path.push(property);

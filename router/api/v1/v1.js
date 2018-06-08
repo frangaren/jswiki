@@ -5,9 +5,7 @@ const path = require('path');
 
 const router = express.Router();
 
-router.get('/', function (req, res, next) {
-    const worker = req.app.get('worker');
-    worker.user.list().then(((reply) => res.json(reply))).catch(next);
-});
+const usersRouter = require(path.join(__dirname, 'users.js'));
+router.use('/users/', usersRouter);
 
 module.exports = router;
