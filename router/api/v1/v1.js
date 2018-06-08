@@ -14,4 +14,7 @@ router.use('/categories/', categoriesRouter);
 const articlesRouter = require(path.join(__dirname, 'articles.js'));
 router.use('/articles/', articlesRouter);
 
+const tokensRouter = require(path.join(__dirname, 'tokens.js'));
+router.use('/tokens/', tokensRouter);
+
 module.exports = router;

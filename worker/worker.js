@@ -27,7 +27,7 @@ mongoose.connection.once('open', function () {
                 process.send({
                     success: false,
                     path: msg.path,
-                    error: 'Invalid method'
+                    error: `Object ${msg.path.slice(0, i)} doesn't contain ${msg.path[i]}`
                 });
                 return;
             }
