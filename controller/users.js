@@ -33,3 +33,8 @@ exports.update = async function (id, newValues) {
     user = await user.save();
     return user;
 }
+
+exports.delete = async function (id) {
+    const user = await User.findByIdAndRemove(id).exec();
+    return user;
+}

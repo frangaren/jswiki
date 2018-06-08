@@ -12,6 +12,8 @@ router.get('/:id', retrieveUser);
 
 router.patch('/:id', updateUser);
 
+router.delete('/:id', deleteUser);
+
 function listUsers(req, res, next) {
     const worker = req.app.get('worker');
     worker.users.list()
@@ -43,6 +45,13 @@ function updateUser(req, res, next) {
         password: req.body.password
     };
     worker.users.update(req.params.id, newValues)
+        .then(res.json.bind(res))
+        .catch(next);
+}
+
+function deleteUser(req, res, next) {
+    const worker = req.app.get('worker');
+    worker.users.delete(req.params.id)
         .then(res.json.bind(res))
         .catch(next);
 }
