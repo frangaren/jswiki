@@ -10,6 +10,8 @@ router.post('/', createUser);
 
 router.get('/:id', retrieveUser);
 
+router.patch('/:id', updateUser);
+
 function listUsers(req, res, next) {
     const worker = req.app.get('worker');
     worker.users.list()
@@ -28,6 +30,19 @@ function createUser(req, res, next) {
 function retrieveUser(req, res, next) {
     const worker = req.app.get('worker');
     worker.users.retrieve(req.params.id)
+        .then(res.json.bind(res))
+        .catch(next);
+}
+
+function updateUser(req, res, next) {
+    const worker = req.app.get('worker');
+    const newValues = {
+        username: req.body.username,
+        email: req.body.email,
+        name: req.body.name,
+        password: req.body.password
+    };
+    worker.users.update(req.params.id, newValues)
         .then(res.json.bind(res))
         .catch(next);
 }

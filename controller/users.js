@@ -23,3 +23,13 @@ exports.retrieve = async function (id) {
     const user = await User.findById(id).exec();
     return user;
 }
+
+exports.update = async function (id, newValues) {
+    let user = await User.findById(id).select('+password').exec();
+    user.username = newValues.username || user.username;
+    user.email = newValues.email || user.email;
+    user.name = newValues.name || user.name;
+    user.password = newValues.password || user.password;
+    user = await user.save();
+    return user;
+}
