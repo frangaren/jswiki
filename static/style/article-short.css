@@ -1,0 +1,17 @@
+.article-short {
+    margin: 2rem 0;
+}
+
+.article-short .category {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+.article-short .category:first-child {
+    margin-left: 0;
+}
+
+.article-short h2 {
+    margin-bottom: 0;
+}

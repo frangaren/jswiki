@@ -186,3 +186,11 @@ input[type="text"]:focus,
 input[type="email"]:focus {
     border-bottom: 2px solid var(--accent-bg-color);
 }
+
+.chip {
+    background-color: var(--neutral-bg-color);
+    color: var(--neutral-fg-color);
+    padding: 0.5rem 1rem;
+    height: 2rem;
+    border-radius: 2rem;
+}
