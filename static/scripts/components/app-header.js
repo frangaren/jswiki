@@ -8,12 +8,6 @@ Vue.component('app-header', {
                 <h1 class="text-align-center">{{title}}</h1>
                 <app-nav/>
             </div>
-            <div class="decorator primary">
-                <div class="left corner">
-                </div>
-                <div class="right corner">
-                </div>
-            </div>
         </header>
     `
 });

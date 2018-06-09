@@ -8,6 +8,8 @@
     --neutral-alt-fg-color: #626262;
     min-width: 100%;
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .primary {
@@ -40,8 +42,4 @@
 
 .neutral a:hover {
     color: var(--accent-bg-color);
-}
-
-.app-body {
-    height: 100vh;
 }
