@@ -1,0 +1,9 @@
+.category-list-item {
+    border-left: 0.3rem solid var(--primary-fg-color);
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.category-list-item:last-child {
+    margin-bottom: 0;
+}

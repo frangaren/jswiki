@@ -1,0 +1,15 @@
+.category {
+    margin: 1rem 0;
+}
+
+.category .controls {
+    display: inline-block;
+}
+
+.category .controls i {
+    margin-left: 0.5rem;
+}
+
+.category .controls i:hover {
+    color: var(--accent-bg-color);
+}
