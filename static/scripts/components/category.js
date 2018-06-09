@@ -1,6 +1,7 @@
 Vue.component('category', {
     props: [
-        'value'
+        'value',
+        'no-controls'
     ],
     template: `
         <div class="category">
@@ -8,7 +9,7 @@ Vue.component('category', {
                 @close="modalVisible = false" @create="$emit('create', $event)"/>
             <span class="name" v-if="!editing">{{value.name}}</span>
             <input type="text" v-model="newName" v-if="editing"></input>
-            <div class="controls">
+            <div class="controls" v-if="!noControls">
                 <i class="fas fa-check" @click="onCheckClick"
                     v-if="editing"></i>
                 <i class="fas fa-plus" @click="onPlusClick"
