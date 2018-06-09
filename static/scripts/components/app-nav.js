@@ -1,6 +1,6 @@
 Vue.component('app-nav', {
     template: `
-        <nav>
+        <nav class="app-nav">
         </nav>
     `
 });

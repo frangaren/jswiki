@@ -3,7 +3,7 @@ Vue.component('app-header', {
         'title'
     ],
     template: `
-        <header>
+        <header class="app-header">
             <h1>{{title}}</h1>
             <app-nav>
             </app-nav>
