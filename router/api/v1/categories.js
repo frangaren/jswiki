@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get('/', listCategories);
 
+router.get('/:parent/children', listChildren);
+
 router.post('/', createCategory);
 
 router.get('/:id', retrieveCategory);
@@ -17,6 +19,14 @@ router.delete('/:id', deleteCategory);
 function listCategories(req, res, next) {
     const worker = req.app.get('worker');
     worker.categories.list()
+        .then(res.json.bind(res))
+        .catch(next);
+}
+
+function listChildren(req, res, next) {
+    const worker = req.app.get('worker');
+    const parent = (req.params.parent === 'root') ? null : req.params.parent;
+    worker.categories.listChildren(parent)
         .then(res.json.bind(res))
         .catch(next);
 }

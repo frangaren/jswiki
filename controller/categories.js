@@ -5,8 +5,14 @@ const path = require('path');
 const Category = require(path.join(__dirname, '..', 'model', 'category.js'));
 
 exports.list = async function () {
-    const categorys = await Category.find().sort('name').exec();
-    return categorys;
+    const categories = await Category.find().sort('name').exec();
+    return categories;
+}
+
+exports.listChildren = async function (parent) {
+    const categories = await Category.find({parent: parent}).sort('name')
+        .exec();
+    return categories;
 }
 
 exports.create = async function (name, parent) {
