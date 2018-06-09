@@ -1,5 +1,2 @@
-const app = new Vue({
-    data: {
-        message: 'Hello World!'
-    }
-}).$mount('#app');
+const vm = new Vue({
+}).$mount('#app-container');
