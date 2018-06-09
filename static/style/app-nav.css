@@ -7,6 +7,10 @@
     margin: 1rem 0;
 }
 
+.app-nav a.router-link-exact-active {
+    color: var(--primary-bg-color);
+}
+
 @media (max-width: 767px) {
     .app-nav {
         justify-content: center;
