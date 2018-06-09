@@ -1,7 +1,11 @@
 .app {
+    --primary-bg-light: #666ad1;
     --primary-bg-color: #303f9f;
+    --primary-bg-dark: #001970;
     --primary-fg-color: #fff;
+    --accent-bg-light: #ffd95a;
     --accent-bg-color: #f9a825;
+    --accent-bg-dark: #c17900;
     --accent-fg-color: #262626;
     --neutral-bg-color: #fff;
     --neutral-fg-color: #262626;
@@ -27,12 +31,62 @@
     color: var(--neutral-fg-color);
 }
 
-.neutral h1,
-.neutral h2,
-.neutral h3,
-.neutral h4,
-.neutral h5,
-.neutral h6 {
+button.primary,
+input[type="button"].primary {
+    background-image: linear-gradient(to bottom,
+        var(--primary-bg-light) 0%,
+        var(--primary-bg-color) 50%,
+        var(--primary-bg-dark) 100%
+    );
+    border: 1px solid var(--primary-bg-dark);
+    text-shadow: 0 0 0.3rem var(--primary-bg-light);
+}
+
+button.accent,
+input[type="button"].accent {
+    background-image: linear-gradient(to bottom,
+        var(--accent-bg-light) 0%,
+        var(--accent-bg-color) 50%,
+        var(--accent-bg-dark) 100%
+    );
+    border: 1px solid var(--accent-bg-dark);
+    text-shadow: 0 0 0.3rem var(--accent-bg-light);
+}
+
+button.primary:hover,
+input[type="button"].primary:hover {
+    box-shadow: inset 0 0 2rem var(--primary-bg-light);
+    border: 1px solid var(--primary-bg-light);
+    text-shadow: 0 0 0.3rem var(--primary-bg-color);
+}
+
+button.accent:hover,
+input[type="button"].accent:hover {
+    box-shadow: inset 0 0 2rem var(--accent-bg-light);
+    border: 1px solid var(--accent-bg-light);
+    text-shadow: 0 0 0.3rem var(--accent-bg-color);
+}
+
+button.primary:active,
+input[type="button"].primary:active {
+    box-shadow: inset 0 0 2rem var(--primary-bg-dark);
+    border: 1px solid var(--primary-bg-dark);
+    text-shadow: 0 0 0.3rem var(--primary-bg-dark);
+}
+
+button.accent:active,
+input[type="button"].accent:active {
+    box-shadow: inset 0 0 2rem var(--accent-bg-dark);
+    border: 1px solid var(--accent-bg-dark);
+    text-shadow: 0 0 0.3rem var(--accent-bg-dark);
+}
+
+.neutral > h1,
+.neutral > h2,
+.neutral > h3,
+.neutral > h4,
+.neutral > h5,
+.neutral > h6 {
     color: var(--primary-bg-color);
 }
 
@@ -40,6 +94,22 @@
     color: var(--neutral-alt-fg-color);
 }
 
+.primary a {
+    color: var(--accent-bg-color);
+}
+
+.accent a {
+    color: var(--primary-bg-color);
+}
+
 .neutral a:hover {
     color: var(--accent-bg-color);
+}
+
+.primary a:hover {
+    color: var(--accent-bg-light);
+}
+
+.accent a:hover {
+    color: var(--primary-bg-light);
 }

@@ -118,6 +118,27 @@ a {
     }
 }
 
+/* LISTS */
+ul {
+    padding-left: 2rem;
+}
+
+/* CONTROLS */
+input[type="button"],
+button {
+    display: inline-block;
+    border-radius: 0.4rem;
+    height: 3.8rem;
+    border: none;
+}
+
+input[type="button"].big,
+button.big {
+    font-size: 2rem;
+    height: 7.6rem;
+    padding: 0 5rem;
+}
+
 /* USEFUL */
 .full-width {
     width: 100%;
@@ -125,4 +146,8 @@ a {
 
 .text-align-center {
     text-align: center;
+}
+
+.text-align-justify {
+    text-align: justify;
 }

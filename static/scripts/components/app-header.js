@@ -4,7 +4,7 @@ Vue.component('app-header', {
     ],
     template: `
         <header class="app-header">
-            <div class="container">
+            <div class="container neutral">
                 <h1 class="text-align-center">{{title}}</h1>
                 <app-nav/>
             </div>

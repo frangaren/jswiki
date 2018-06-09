@@ -1,0 +1,14 @@
+.home {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.home > .container{
+    margin-top: 3rem;
+}
+
+.home > .container:first-child {
+    margin-top: 0;
+}
