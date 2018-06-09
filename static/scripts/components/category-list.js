@@ -1,13 +1,17 @@
 Vue.component('category-list', {
     props: [
-        'parent'
+        'value'
     ],
     template:`
         <div class="category-list">
-            <div class="category-list-item" v-for="category in categories">
-                <category :value="category" @delete="onDelete"/>
-                <category-list :parent="category._id"/>
-            </div>
+            <category :value="value" @input="$emit('input', $event)"
+                @delete="$emit('delete', $event)" @create="onCreate"/>
+            <draggable class="category-children" v-model="categories"
+                :options="{filter: '.category-list-placeholder', group: 'categories'}"
+                @add="onAdd">
+                <category-list v-for="category in categories" :key="category._id" 
+                    @delete="onDelete" :value="category" @input="onUpdate(category, $event)"/>
+            </draggable>
         </div>
     `,
     created: function () {
@@ -23,12 +27,29 @@ Vue.component('category-list', {
     },
     methods: {
         load: function() {
-            axios.get(`/api/v1/categories/${this.parent}/children`)
+            axios.get(`/api/v1/categories/${this.value._id}/children`)
                 .then(res => this.categories = res.data)
                 .catch(console.error);
         },
-        onDelete: function() {
-            this.load();
+        onAdd: function(event) {
+            const category = this.categories[event.newIndex];
+            category.parent = this.value._id;
+            axios.patch(`/api/v1/categories/${category._id}`, category)
+                .catch(console.error);
+        },
+        onDelete: function(category) {
+            for (let i = 0; i < this.categories.length; i++) {
+                if (this.categories[i]._id === category._id) {
+                    this.categories.splice(i, 1);
+                    break;
+                }
+            }
+        },
+        onCreate: function(category) {
+            this.categories.unshift(category);
+        },
+        onUpdate: function(oldValue, newValue) {
+            Vue.set(this.categories, this.categories.indexOf(oldValue), newValue);
         }
     }
 });

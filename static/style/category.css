@@ -13,3 +13,7 @@
 .category .controls i:hover {
     color: var(--accent-bg-color);
 }
+
+.category input[type="text"] {
+    max-width: 32rem;
+}

@@ -5,8 +5,17 @@ Vue.component('categories', {
     template: `
         <div class="categories full-width">
             <div class="container">
-                <category-list parent="root"/>
+                <category-list :value="rootCategory"/>
             </div>
         </div>
-    `
+    `,
+    data: function() {
+        return {
+            rootCategory: {
+                _id: 'root',
+                parent: null,
+                name: 'Raíz'
+            }
+        }
+    }
 });

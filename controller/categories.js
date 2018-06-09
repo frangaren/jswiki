@@ -18,7 +18,7 @@ exports.listChildren = async function (parent) {
 exports.create = async function (name, parent) {
     let category = new Category();
     category.name = name;
-    category.parent = parent;
+    category.parent = (parent === 'root') ? null : parent;
     category = await category.save();
     return category;
 }
@@ -31,7 +31,11 @@ exports.retrieve = async function (id) {
 exports.update = async function (id, newValues) {
     let category = await Category.findById(id).exec();
     category.name = newValues.name || category.name;
-    category.parent = newValues.parent || category.parent;
+    if (newValues.parent !== 'root') {
+        category.parent = newValues.parent || category.parent;
+    } else {
+        category.parent = null;
+    }
     category = await category.save();
     return category;
 }

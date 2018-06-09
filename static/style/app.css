@@ -113,3 +113,76 @@ input[type="button"].accent:active {
 .accent a:hover {
     color: var(--primary-bg-light);
 }
+
+button.simple,
+input[type="button"].simple {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+}
+
+button.simple.primary,
+input[type="button"].simple.primary {
+    color: var(--primary-bg-color);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+button.simple.accent,
+input[type="button"].simple.accent {
+    color: var(--accent-bg-color);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+button.simple.primary:hover,
+input[type="button"].somple.primary:hover {
+    color: var(--primary-bg-light);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+button.simple.accent:hover,
+input[type="button"].simple.accent:hover {
+    color: var(--accent-bg-light);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+button.simple.primary:active,
+input[type="button"].simple.primary:active {
+    color: var(--primary-bg-dark);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+button.simple.accent:active,
+input[type="button"].simple.accent:active {
+    color: var(--accent-bg-dark);
+    background: none;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+input[type="text"],
+input[type="email"] {
+    background-color: white;
+    color: var(--neutral-fg-color);
+    border: none;
+    border-bottom: 2px solid var(--primary-bg-color);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-bottom: 2px solid var(--accent-bg-color);
+}
