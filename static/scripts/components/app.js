@@ -1,8 +1,8 @@
 Vue.component('app', {
     template: `
-        <div class="app">
+        <div class="app neutral">
             <app-header :title="title"/>
-            <router-view></router-view>
+            <app-body/>
         </div>
     `,
     data: function () {

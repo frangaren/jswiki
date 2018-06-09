@@ -1,0 +1,47 @@
+.app {
+    --primary-bg-color: #303f9f;
+    --primary-fg-color: #fff;
+    --accent-bg-color: #f9a825;
+    --accent-fg-color: #262626;
+    --neutral-bg-color: #fff;
+    --neutral-fg-color: #262626;
+    --neutral-alt-fg-color: #626262;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.primary {
+    background: var(--primary-bg-color);
+    color: var(--primary-fg-color);
+}
+
+.accent {
+    background: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+}
+
+.neutral {
+    background: var(--neutral-bg-color);
+    color: var(--neutral-fg-color);
+}
+
+.neutral h1,
+.neutral h2,
+.neutral h3,
+.neutral h4,
+.neutral h5,
+.neutral h6 {
+    color: var(--primary-bg-color);
+}
+
+.neutral a {
+    color: var(--neutral-alt-fg-color);
+}
+
+.neutral a:hover {
+    color: var(--accent-bg-color);
+}
+
+.app-body {
+    height: 100vh;
+}

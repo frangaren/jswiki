@@ -4,9 +4,16 @@ Vue.component('app-header', {
     ],
     template: `
         <header class="app-header">
-            <h1>{{title}}</h1>
-            <app-nav>
-            </app-nav>
+            <div class="container">
+                <h1 class="text-align-center">{{title}}</h1>
+                <app-nav/>
+            </div>
+            <div class="decorator primary">
+                <div class="left corner">
+                </div>
+                <div class="right corner">
+                </div>
+            </div>
         </header>
     `
 });

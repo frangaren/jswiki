@@ -1,0 +1,43 @@
+.app-header .container {
+    min-height: 6.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+    .app-header .container {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.app-header h1 {
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.app-header .decorator {
+    width: 100%;
+}
+
+.app-header .decorator .corner {
+    width: 16px;
+    height: 16px;
+}
+
+.app-header .decorator .corner.left {
+    float: left;
+    background-image: radial-gradient(circle at 100% 100%, rgba(0,0,0,0) 16px, var(--neutral-bg-color) 17px);
+}
+
+.app-header .decorator .corner.right {
+    float: right;
+    background-image: radial-gradient(circle at 0% 100%, rgba(0,0,0,0) 16px, var(--neutral-bg-color) 17px);
+}
+
+.app-header .decorator::after {
+    clear: both;
+    content: "";
+    display: block;
+}

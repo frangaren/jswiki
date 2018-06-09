@@ -1,0 +1,128 @@
+html, 
+body,
+#app-container {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* TYPOGRAPHY RESET */
+
+html { 
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+h1 { font-size: 4rem; }
+h2 { font-size: 3.6rem; }
+h3 { font-size: 3rem; }
+h4 { font-size: 2.4rem; }
+h5 { font-size: 2.0rem; }
+h6 { font-size: 1.8rem; }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* GRID */
+
+.container {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.container::after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.column,
+.columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 4%;
+}
+
+.column:first-child,
+.columns:first-child {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .one.column,
+    .one.columns { width: calc(104% / (12 / 1) - 4%); }
+
+    .two.column,
+    .two.columns { width: calc(104% / (12 / 2) - 4%); }
+
+    .three.column,
+    .three.columns { width: calc(104% / (12 / 3) - 4%); }
+
+    .four.column,
+    .four.columns { width: calc(104% / (12 / 4) - 4%); }
+
+    .five.column,
+    .five.columns { width: calc(104% / (12 / 5) - 4%); }
+
+    .six.column,
+    .six.columns { width: calc(104% / (12 / 6) - 4%); }
+
+    .seven.column,
+    .seven.columns { width: calc(104% / (12 / 7) - 4%); }
+
+    .eight.column,
+    .eight.columns { width: calc(104% / (12 / 8) - 4%); }
+
+    .nine.column,
+    .nine.columns { width: calc(104% / (12 / 9) - 4%); }
+
+    .ten.column,
+    .ten.columns { width: calc(104% / (12 / 10) - 4%); }
+
+    .eleven.column,
+    .eleven.columns { width: calc(104% / (12 / 11) - 4%); }
+
+    .twelve.column,
+    .twelve.columns { width: calc(104% / (12 / 12) - 4%); }
+}
+
+@media (max-width: 767px) {
+    .container {
+        width: 85%;
+        padding: 0;
+    }
+}
+
+/* USEFUL */
+.full-width {
+    width: 100%;
+}
+
+.text-align-center {
+    text-align: center;
+}
