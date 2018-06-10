@@ -8,35 +8,45 @@ Vue.component('article-editor', {
     template: `
         <div class="article-editor">
             <div class="controls">
-                <button class="accent simple">Vista previa</button>
+                <button class="accent simple"
+                    @click="showPreview = false"
+                    v-if="showPreview">Volver a editar</button>
+                <button class="accent simple"
+                    @click="onPreview"
+                    v-else>Vista previa</button>
                 <button class="accent"
                     @click="$emit('input', article)"
                 >Guardar</button>
             </div>
-            <div class="title">
-                <h3 class="title-field" v-if="!editingTitle">
-                    {{article.topic}}
-                </h3>
-                <input class="title-field" type="text" v-model="article.topic" v-else/>
-                <div class="controls">
-                    <i class="fas fa-check" @click="onCheckTopicClick"
-                        v-if="editingTitle"></i>
-                    <i class="fas fa-edit" @click="onEditTopicClick" 
-                        v-else></i>
-                </div>
+            <div class="preview" v-if="showPreview">
+                <article-viewer :value="article" :no-controls="true"/>
             </div>
-            <multiselect v-model="selectedCategories"
-                :options="categories"
-                :multiple=true
-                placeholder="Selecciona las categorías"
-                selectedLabel="Seleccionado"
-                selectLabel="Seleccionar"
-                deselectLabel="Quitar"
-                label="name"
-                track-by="_id"
-                ></multiselect>
-            <textarea class="editor" v-model="article.body">
-            </textarea>
+            <div class="editor" v-else>
+                <div class="title">
+                    <h3 class="title-field" v-if="!editingTitle">
+                        {{article.topic}}
+                    </h3>
+                    <input class="title-field" type="text" v-model="article.topic" v-else/>
+                    <div class="controls">
+                        <i class="fas fa-check" @click="onCheckTopicClick"
+                            v-if="editingTitle"></i>
+                        <i class="fas fa-edit" @click="onEditTopicClick" 
+                            v-else></i>
+                    </div>
+                </div>
+                <multiselect v-model="selectedCategories"
+                    :options="categories"
+                    :multiple=true
+                    placeholder="Selecciona las categorías"
+                    selectedLabel="Seleccionado"
+                    selectLabel="Seleccionar"
+                    deselectLabel="Quitar"
+                    label="name"
+                    track-by="_id"
+                    ></multiselect>
+                <textarea class="body-editor" v-model="article.body">
+                </textarea>
+            </div>
         </div>
     `,
     created: function () {
@@ -54,7 +64,8 @@ Vue.component('article-editor', {
                 categories: []
             },
             selectedCategories: [],
-            categories: []
+            categories: [],
+            showPreview: false
         };
     },
     watch: {
@@ -91,6 +102,10 @@ Vue.component('article-editor', {
         },
         onCheckTopicClick: function() {
             this.editingTitle = false;
+        },
+        onPreview: function() {
+            this.showPreview = true;
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
 });
