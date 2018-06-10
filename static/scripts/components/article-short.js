@@ -14,7 +14,7 @@ Vue.component('article-short', {
                 <category class="chip" v-for="category in categories" :value="category" 
                     :key="category._id" no-controls="true"/>
             </div>
-            <div class="controls" v-if="!noControls">
+            <div class="controls" v-if="!noControls && auth.logged">
                 <i class="fas fa-edit" @click="onEditClick"></i>
                 <i class="fas fa-trash" @click="onTrashClick"></i>
             </div>
@@ -22,7 +22,8 @@ Vue.component('article-short', {
     `,
     data: function() {
         return {
-            categories: []
+            categories: [],
+            auth: auth.state
         };
     },
     created: function () {

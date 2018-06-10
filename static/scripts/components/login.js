@@ -35,8 +35,7 @@ Vue.component('login', {
         onSubmit: function(event) {
             axios.post('/api/v1/tokens/grant', this.user)
                 .then(res => {
-                    this.auth.logged = true;
-                    this.auth.details = res.data;
+                    auth.login(res.data);
                     router.push('/');
                 })
                 .catch(error => {

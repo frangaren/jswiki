@@ -10,7 +10,7 @@ Vue.component('category', {
             <router-link :to="URL" class="name" v-if="!editing">
                 {{value.name}}</router-link>
             <input type="text" v-model="newName" v-if="editing"></input>
-            <div class="controls" v-if="!noControls">
+            <div class="controls" v-if="!noControls && auth.logged">
                 <i class="fas fa-check" @click="onCheckClick"
                     v-if="editing"></i>
                 <i class="fas fa-plus" @click="onPlusClick"
@@ -26,7 +26,8 @@ Vue.component('category', {
         return {
             modalVisible: false,
             editing: false,
-            newName: ''
+            newName: '',
+            auth: auth.state
         };
     },
     computed: {

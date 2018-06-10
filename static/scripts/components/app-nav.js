@@ -4,8 +4,14 @@ Vue.component('app-nav', {
             <router-link to="/">Principal</router-link>
             <router-link to="/categories">Categorías</router-link>
             <router-link to="/articles">Artículos</router-link>
-            <router-link to="/login">Identificarse</router-link>
-            <router-link to="/register">Registrarse</router-link>
+            <router-link to="/login" v-if="!auth.logged">Identificarse</router-link>
+            <router-link to="/register" v-if="!auth.logged">Registrarse</router-link>
+            <router-link to="/logout" v-if="auth.logged">Cerrar sesión</router-link>
         </nav>
-    `
+    `,
+    data: function() {
+        return {
+            auth: auth.state
+        }
+    }
 });

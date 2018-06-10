@@ -42,16 +42,29 @@ Vue.component('home', {
             </div>
             <div class="container">
                 <div class="twelve columns text-align-center">
-                    <button class="accent big" @click="onRegisterClick">
+                    <button class="accent big" @click="onRegisterClick"
+                        v-if="!auth.logged">
                         ¡Registrate!
+                    </button>
+                    <button class="accent big" @click="onNewArticleClick"
+                        v-if="auth.logged">
+                        ¡Crea un artículo!
                     </button>
                 </div>
             </div>
         </div>
     `,
+    data: function () {
+        return {
+            auth: auth.state
+        }
+    },
     methods: {
         onRegisterClick: function () {
             router.push('/register');
+        },
+        onNewArticleClick: function () {
+            router.push('/articles/new');
         }
     }
 });

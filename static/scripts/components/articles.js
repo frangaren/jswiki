@@ -1,7 +1,7 @@
 Vue.component('articles', {
     template: `
         <div class="articles container">
-            <button class="accent" @click="onNewClick">
+            <button class="accent" @click="onNewClick" v-if="auth.logged">
                 Crear nuevo
             </button>
             <div class="articles-list">
@@ -18,7 +18,8 @@ Vue.component('articles', {
     },
     data: function() {
         return {
-            articles: []
+            articles: [],
+            auth: auth.state
         };
     },
     methods: {

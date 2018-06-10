@@ -7,7 +7,8 @@ const routes = [
     {path: '/article/:id', component: Vue.component('article-details')},
     {path: '/article/:id/edit', component: Vue.component('article-edit')},
     {path: '/login', component: Vue.component('login')},
-    {path: '/register', component: Vue.component('register')}
+    {path: '/register', component: Vue.component('register')},
+    {path: '/logout', beforeEnter: auth.logout.bind(auth)}
 ];
 
 const router = new VueRouter({
