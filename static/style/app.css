@@ -179,12 +179,21 @@ input[type="email"] {
     background-color: white;
     color: var(--neutral-fg-color);
     border: none;
-    border-bottom: 2px solid var(--primary-bg-color);
+    border-bottom: 0.2rem solid var(--primary-bg-color);
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus {
-    border-bottom: 2px solid var(--accent-bg-color);
+    border-bottom: 0.2rem solid var(--accent-bg-color);
+}
+
+textarea {
+    border: none;
+    border-radius: 0.4rem;
+}
+
+textarea:focus {
+    border: 0.1rem solid var(--accent-bg-color);
 }
 
 .chip {

@@ -1,0 +1,62 @@
+.article-editor {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.article-editor .title {
+    display: flex;
+    align-items: center;
+}
+
+.article-editor .title .title-field {
+    max-width: 32rem;
+    margin: 0;
+}
+
+.article-editor .title .controls {
+    margin-left: 1rem;
+}
+
+.article-editor .multiselect__tag {
+    background: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+}
+
+.article-editor .multiselect__tag-icon::after {
+    color: var(--accent-fg-color);
+}
+
+.article-editor .multiselect__option--highlight {
+    background: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+}
+
+.article-editor .multiselect__option--highlight::after {
+    background: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+}
+.article-editor .multiselect__tag-icon:focus,
+.article-editor .multiselect__tag-icon:hover {
+    background: var(--accent-bg-dark);
+    color: var(--accent-fg-color);
+}
+
+.article-editor > .controls {
+    display: flex;
+    justify-content: right;
+}
+
+.article-editor .controls button{
+    margin-left: 1rem;
+}
+
+.article-editor .controls button:first-child{
+    margin: 0;
+}
+
+.article-editor .editor {
+    margin-top: 1rem;
+    width: 100%;
+    flex-grow: 1;
+}
