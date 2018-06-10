@@ -1,0 +1,45 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile img {
+    border-radius: 1.6rem;
+}
+
+.profile i {
+    margin-left: 0.5rem;
+}
+
+.profile i:hover {
+    color: var(--accent-bg-color);
+}
+
+.profile .details{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 2.0rem;
+}
+
+.profile .details div {
+    margin-top: 1rem;
+}
+
+.profile .details div:first-child {
+    margin-top: 0;
+}
+
+.profile .edit {
+    margin-top: 2rem;
+}
+
+.profile .edit div {
+    margin-top: 1rem;
+}
+
+.profile .edit div:first-child {
+    margin-top: 0;
+}

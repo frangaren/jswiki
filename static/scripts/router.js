@@ -6,6 +6,7 @@ const routes = [
     {path: '/articles/new', component: Vue.component('article-new'), meta: {auth: true}},
     {path: '/article/:id', component: Vue.component('article-details')},
     {path: '/article/:id/edit', component: Vue.component('article-edit'), meta: { auth: true }},
+    {path: '/profile/:id', component: Vue.component('profile') },
     {path: '/login', component: Vue.component('login')},
     {path: '/register', component: Vue.component('register')},
     {path: '/logout', beforeEnter: auth.logout.bind(auth)}
