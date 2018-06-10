@@ -6,7 +6,8 @@ const routes = [
     {path: '/articles/new', component: Vue.component('article-new')},
     {path: '/article/:id', component: Vue.component('article-details')},
     {path: '/article/:id/edit', component: Vue.component('article-edit')},
-    {path: '/login', component: Vue.component('login')}
+    {path: '/login', component: Vue.component('login')},
+    {path: '/register', component: Vue.component('register')}
 ];
 
 const router = new VueRouter({

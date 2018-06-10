@@ -1,0 +1,28 @@
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register form {
+    max-width: 30rem;
+    padding: 2rem;
+    border-radius: 1.6rem;
+}
+
+.register form > div {
+    margin-top: 1.5rem;
+}
+
+.register form > div:first-child {
+    margin-top: 0;
+}
+
+.register .controls {
+    display: flex;
+    justify-content: right;
+}
+
+.register .error {
+    color: red;
+}
