@@ -1,7 +1,7 @@
 Vue.component('article-edit', {
     template: `
         <div class="article-edit container">
-            <article-editor :value="article"/>
+            <article-editor v-model="article" @input="onSave"/>
         </div>
     `,
     data: function () {
@@ -27,6 +27,14 @@ Vue.component('article-edit', {
         },
         onDelete: function () {
             router.go(-1);
+        },
+        onSave: function () {
+            axios.patch(`/api/v1/articles/${this.$route.params.id}`, this.article)
+                .then(res => {
+                    this.article = res.data;
+                    router.push(`/article/${this.article._id}`);
+                })
+                .catch(console.error);
         }
     }
 });

@@ -157,6 +157,11 @@ textarea {
     min-height: 25.6rem;
 }
 
+blockquote {
+    margin-left: 2rem;
+    padding-left: 1rem;
+}
+
 /* USEFUL */
 .full-width {
     width: 100%;

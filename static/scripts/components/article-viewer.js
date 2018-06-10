@@ -9,9 +9,24 @@ Vue.component('article-viewer', {
                 <article-short :value="value" :no-controls="noControls"
                     @delete="$emit('delete', $event)"/>
             </header>
-            <section class="article-body neutral">
-                {{value.body}}
+            <section class="article-body neutral" v-html="renderedBody">
             </section>
         </article>
     `,
+    computed: {
+        renderedBody: function () {
+            let markdown = markdownit({
+                highlight: function (str, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                        try {
+                            return hljs.highlight(lang, str).value;
+                        } catch (__) { }
+                    }
+                    return '';
+                }
+            }).use(window.markdownitMathjax());
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            return markdown.render(this.value.body);
+        }
+    }
 });

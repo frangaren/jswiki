@@ -9,7 +9,9 @@ Vue.component('article-editor', {
         <div class="article-editor">
             <div class="controls">
                 <button class="accent simple">Vista previa</button>
-                <button class="accent">Guardar</button>
+                <button class="accent"
+                    @click="$emit('input', article)"
+                >Guardar</button>
             </div>
             <div class="title">
                 <h3 class="title-field" v-if="!editingTitle">
@@ -33,7 +35,7 @@ Vue.component('article-editor', {
                 label="name"
                 track-by="_id"
                 ></multiselect>
-            <textarea class="editor">
+            <textarea class="editor" v-model="article.body">
             </textarea>
         </div>
     `,

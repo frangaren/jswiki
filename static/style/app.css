@@ -9,6 +9,7 @@
     --accent-fg-color: #262626;
     --neutral-bg-color: #fff;
     --neutral-fg-color: #262626;
+    --neutral-alt-bg-color: #eeeeee;
     --neutral-alt-fg-color: #626262;
     min-width: 100%;
     min-height: 100%;
@@ -202,4 +203,16 @@ textarea:focus {
     padding: 0.5rem 1rem;
     height: 2rem;
     border-radius: 2rem;
+}
+
+blockquote {
+    border-left: 0.3rem solid var(--primary-bg-color);
+    color: var(--neutral-alt-fg-color);
+}
+
+pre {
+    border: 0.1rem solid var(--primary-bg-color);
+    background: var(--neutral-alt-bg-color);
+    padding: 1rem;
+    border-radius: 0.3rem;
 }
