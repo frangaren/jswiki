@@ -142,6 +142,7 @@ button.big {
 
 input[type="text"],
 input[type="email"],
+input[type="password"],
 textarea {
     box-sizing: border-box;
     width: 100%;
