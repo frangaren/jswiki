@@ -4,7 +4,7 @@ function logged (req, res, next) {
         req.connection.remoteAddress)
         .then(reply => {
             if (reply.valid) { // Good credentials
-                req.body.authId = reply._id;
+                req.body.currentUser = reply._id;
                 next();
             } else { // Wrong credentials
                 const error = {

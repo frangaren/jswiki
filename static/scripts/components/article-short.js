@@ -17,6 +17,7 @@ Vue.component('article-short', {
             <div class="controls" v-if="!noControls && auth.logged">
                 <favorite-button :article="value"/>
                 <i class="fas fa-edit" @click="onEditClick"></i>
+                <i class="fas fa-history" @click="onHistoryClick"></i>
                 <i class="fas fa-trash" @click="onTrashClick"></i>
             </div>
         </div>
@@ -42,6 +43,9 @@ Vue.component('article-short', {
         },
         editURL: function () {
             return `/article/${this.value._id}/edit`;
+        },
+        historyURL: function () {
+            return `/article/${this.value._id}/history`;
         }
     },
     methods: {
@@ -54,6 +58,9 @@ Vue.component('article-short', {
         },
         onEditClick: function() {
             router.push(this.editURL);
+        },
+        onHistoryClick: function() {
+            router.push(this.historyURL);
         },
         onTrashClick: function() {
             axios.delete(`/api/v1/articles/${this.value._id}`)

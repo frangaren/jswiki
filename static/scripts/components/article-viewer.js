@@ -25,7 +25,9 @@ Vue.component('article-viewer', {
                     return '';
                 }
             }).use(window.markdownitMathjax());
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            if (typeof MathJax !== 'undefined') {
+                MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+            }
             return markdown.render(this.value.body);
         }
     }
