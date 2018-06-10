@@ -1,6 +1,7 @@
 Vue.component('article-short', {
     props: [
-        'value'
+        'value',
+        'no-controls'
     ],
     template: `
         <div class="article-short">
@@ -13,7 +14,7 @@ Vue.component('article-short', {
                 <category class="chip" v-for="category in categories" :value="category" 
                     :key="category._id" no-controls="true"/>
             </div>
-            <div class="controls">
+            <div class="controls" v-if="!noControls">
                 <i class="fas fa-edit" @click="onEditClick"></i>
                 <i class="fas fa-trash" @click="onTrashClick"></i>
             </div>
