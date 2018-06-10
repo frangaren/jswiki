@@ -28,6 +28,7 @@ const auth = {
             access_token: this.state.details.access_token
         };
         localStorage.setItem('auth', JSON.stringify(this.state));
+        router.push('/');
     }
 };
 
