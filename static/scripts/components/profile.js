@@ -1,20 +1,30 @@
 Vue.component('profile', {
     template: `
-        <div class="profile container">
+        <div class="container profile">
             <div class="twelve columns text-align-center">
                 <img :src="avatarURL" />
-            </div>
-            <div class="details three-offset six columns" v-if="!editing">
-                <div>
-                    <span>{{user.username}} ({{user.name}})</span>
+                <div class="details" v-if="!editing">
+                    <div>
+                        <span>{{user.username}} ({{user.name}})</span>
+                    </div>
+                    <div>{{user.email}}</div>
+                    <div>
+                        <button class="accent"
+                            v-if="user._id === auth.details._id && !editing"
+                            @click="onEditClick">
+                            Editar
+                        </button>
+                    </div>
                 </div>
-                <div>{{user.email}}</div>
-                <div>
-                    <button class="accent"
-                        v-if="user._id === auth.details._id && !editing"
-                        @click="onEditClick">
-                        Editar
-                    </button>
+                <div class="favorites" v-if="!editing">
+                    <h2 class="text-align-center">Favoritos</h2>
+                    <div class="favorite-ist">
+                        <article-short v-for="article in favorites" :value="article"
+                            :key="article._id" :no-controls="true"/>
+                        <div v-if="favorites.length == 0" class="text-align-center">
+                            Nada por aquí
+                        </div>
+                    </div>
                 </div>
             </div>
             <form class="edit three-offset six columns" v-if="editing" @submit="onSubmit">
@@ -62,6 +72,7 @@ Vue.component('profile', {
                 email: '',
                 password: ''
             },
+            favorites: [],
             editing: false,
             auth: auth.state
         };
@@ -85,6 +96,9 @@ Vue.component('profile', {
                     this.user = res.data;
                     this.copyUser;
                 })
+                .catch(console.error);
+            axios.get(`/api/v1/users/${this.$route.params.id}/favorites`)
+                .then(res => this.favorites = res.data)
                 .catch(console.error);
         },
         onEditClick: function() {

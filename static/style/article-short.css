@@ -28,7 +28,7 @@
     display: inline-block;
 }
 
-.article-short .controls i {
+.article-short .controls > * {
     margin-left: 0.5rem;
 }
 

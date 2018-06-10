@@ -24,6 +24,33 @@ exports.retrieve = async function (id) {
     return user;
 }
 
+exports.listFavorites = async function (id) {
+    const user = await User.findById(id).populate('favorites').exec();
+    return user.favorites;
+}
+
+exports.containsFavorite = async function (id, article) {
+    let user = await User.findById(id).exec();
+    return {
+        'is-favorite': user.favorites.indexOf(article) !== -1
+    };
+}
+
+exports.addFavorite = async function (id, article) {
+    let user = await User.findById(id).exec();
+    user.favorites.push(article);
+    user = await user.save();
+    return user;
+}
+
+exports.deleteFavorite = async function (id, article) {
+    let user = await User.findById(id).exec();
+    user.favorites = user.favorites.filter(it => it._id != article);
+    user = await user.save();
+    return user;
+}
+
+
 exports.update = async function (id, newValues) {
     let user = await User.findById(id).select('+password').exec();
     user.username = newValues.username || user.username;

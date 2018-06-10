@@ -6,7 +6,13 @@ const userSchema = mongoose.Schema({
     username: String,
     email: String,
     name: String,
-    password: String
+    password: String,
+    favorites: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Article'
+        }
+    ]
 });
 
 userSchema.path('username').required(true).unique(true);

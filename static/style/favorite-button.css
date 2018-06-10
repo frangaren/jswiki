@@ -1,0 +1,54 @@
+@keyframes star {
+  0% {
+    color: var(--primary-fg-color);
+    transform: scale(1);
+  }
+  30% {
+    color: var(--primary-fg-color);
+    transform: scale(1.75);
+  }
+  90% {
+    color: var(--accent-bg-color);
+    transform: scale(0.75);
+  }
+  100% {
+    color: var(--accent-bg-color);
+    transform: scale(1);
+  }
+}
+
+@keyframes unstar {
+  0% {
+    color: var(--accent-bg-color);
+    transform: scale(1);
+  }
+  30% {
+    color: var(--accent-bg-color);
+    transform: scale(0.5);
+  }
+  90% {
+    color: var(--primary-fg-color);
+    transform: scale(1.25);
+  }
+  100% {
+    color: var(--primary-fg-color);
+    transform: scale(1);
+  }
+}
+
+.favorite-button i {
+    animation: unstar 0.3s ease-in-out 0s 1 forwards;
+}
+
+.favorite-button.toggled {
+    animation: star 0.3s ease-in-out 0s 1 forwards;
+    color: var(--accent-bg-color);
+}
+
+.favorite-button.toggled i {
+    animation: star 0.3s ease-in-out 0s 1 forwards;
+}
+
+.favorite-button.toggled i:hover {
+    color: var(--accent-bg-dark);
+}

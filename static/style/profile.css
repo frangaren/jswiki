@@ -43,3 +43,7 @@
 .profile .edit div:first-child {
     margin-top: 0;
 }
+
+.profile .favorites {
+    margin-top: 5rem;
+}

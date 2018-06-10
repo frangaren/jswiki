@@ -34,6 +34,7 @@ const auth = {
 
 if (localStorage.getItem('auth')) {
     const authDetails = JSON.parse(localStorage.getItem('auth')).details;
+    auth.login(authDetails);
     axios.post('/api/v1/tokens/check', authDetails)
         .then(res => {
             authDetails._id = res.data._id;

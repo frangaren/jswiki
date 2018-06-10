@@ -15,6 +15,7 @@ Vue.component('article-short', {
                     :key="category._id" no-controls="true"/>
             </div>
             <div class="controls" v-if="!noControls && auth.logged">
+                <favorite-button :article="value"/>
                 <i class="fas fa-edit" @click="onEditClick"></i>
                 <i class="fas fa-trash" @click="onTrashClick"></i>
             </div>
