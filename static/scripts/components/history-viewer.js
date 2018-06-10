@@ -7,17 +7,20 @@ Vue.component('history-viewer', {
     },
     template: `
         <div class="history-viewer">
-            <div class="controls">
-                <button class="accent simple"
-                    @click="showPreview = false"
-                    v-if="showPreview">Volver al histórico</button>
-                <button class="accent simple"
-                    @click="onPreview"
-                    v-else>Vista previa</button>
-                <button class="accent"
-                    @click="onRestore"
-                >Restaurar</button>
-            </div>
+            <header>
+                <h2>Histórico</h2>
+                <div class="controls">
+                    <button class="accent simple"
+                        @click="showPreview = false"
+                        v-if="showPreview">Volver al histórico</button>
+                    <button class="accent simple"
+                        @click="onPreview"
+                        v-else>Vista previa</button>
+                    <button class="accent"
+                        @click="onRestore"
+                    >Restaurar</button>
+                </div>
+            </header>
             <div class="preview" v-if="showPreview">
                 <article-viewer :value="article" :no-controls="true"/>
             </div>

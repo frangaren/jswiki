@@ -7,17 +7,20 @@ Vue.component('article-editor', {
     },
     template: `
         <div class="article-editor">
-            <div class="controls">
-                <button class="accent simple"
-                    @click="showPreview = false"
-                    v-if="showPreview">Volver a editar</button>
-                <button class="accent simple"
-                    @click="onPreview"
-                    v-else>Vista previa</button>
-                <button class="accent"
-                    @click="$emit('input', article)"
-                >Guardar</button>
-            </div>
+            <header>
+                <h2>Editar</h2>
+                <div class="controls">
+                    <button class="accent simple"
+                        @click="showPreview = false"
+                        v-if="showPreview">Volver a editar</button>
+                    <button class="accent simple"
+                        @click="onPreview"
+                        v-else>Vista previa</button>
+                    <button class="accent"
+                        @click="$emit('input', article)"
+                    >Guardar</button>
+                </div>
+            </header>
             <div class="preview" v-if="showPreview">
                 <article-viewer :value="article" :no-controls="true"/>
             </div>

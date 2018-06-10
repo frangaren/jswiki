@@ -1,7 +1,14 @@
 .article-editor {
-    height: 100%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.article-editor header {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .article-editor .title {
@@ -43,9 +50,8 @@
     color: var(--accent-fg-color);
 }
 
-.article-editor > .controls {
-    display: flex;
-    justify-content: right;
+.article-editor .controls {
+    margin-left: auto;
 }
 
 .article-editor .controls button{
@@ -57,13 +63,9 @@
 }
 
 .article-editor .editor {
-    display: flex;
-    flex-direction: column;
     flex-grow: 1;
 }
 
 .article-editor .body-editor {
     margin-top: 1rem;
-    width: 100%;
-    flex-grow: 1;
 }

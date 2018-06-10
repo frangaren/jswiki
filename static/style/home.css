@@ -1,8 +1,6 @@
 .home {
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    margin: auto auto;
 }
 
 .home > .container{

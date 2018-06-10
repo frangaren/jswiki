@@ -2,9 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: right;
-    flex-grow: 1;
     margin: 1rem 0;
+    margin-left: auto;
 }
 
 .app-nav a.router-link-exact-active {
