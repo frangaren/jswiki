@@ -1,8 +1,13 @@
 Vue.component('articles', {
     template: `
         <div class="articles container">
-            <article-short v-for="article in articles" :value="article"
-                :key="article._id" @delete="onDelete"/>
+            <button class="accent" @click="onNewClick">
+                Crear nuevo
+            </button>
+            <div class="articles-list">
+                <article-short v-for="article in articles" :value="article"
+                    :key="article._id" @delete="onDelete"/>
+            </div>
         </div>
     `,
     created: function() {
@@ -29,6 +34,9 @@ Vue.component('articles', {
                     break;
                 }
             }
+        },
+        onNewClick: function() {
+            router.push('/articles/new');
         }
     }
 });
