@@ -15,3 +15,23 @@
 .article-short h2 {
     margin-bottom: 0;
 }
+
+.article-short h2 a {
+    color: var(--primary-fg-color);
+}
+
+.article-short h2 a:hover {
+    color: var(--accent-bg-color);
+}
+
+.article-short .controls {
+    display: inline-block;
+}
+
+.article-short .controls i {
+    margin-left: 0.5rem;
+}
+
+.article-short .controls i:hover {
+    color: var(--accent-bg-color);
+}

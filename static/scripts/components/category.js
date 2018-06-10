@@ -7,7 +7,8 @@ Vue.component('category', {
         <div class="category">
             <new-category-modal :parent="value._id" v-if="modalVisible" 
                 @close="modalVisible = false" @create="$emit('create', $event)"/>
-            <span class="name" v-if="!editing">{{value.name}}</span>
+            <router-link :to="URL" class="name" v-if="!editing">
+                {{value.name}}</router-link>
             <input type="text" v-model="newName" v-if="editing"></input>
             <div class="controls" v-if="!noControls">
                 <i class="fas fa-check" @click="onCheckClick"
@@ -27,6 +28,11 @@ Vue.component('category', {
             editing: false,
             newName: ''
         };
+    },
+    computed: {
+        URL: function() {
+            return `/category/${this.value._id}`;
+        }
     },
     methods: {
         onPlusClick: function () {

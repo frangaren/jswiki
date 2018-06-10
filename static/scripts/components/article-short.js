@@ -4,10 +4,18 @@ Vue.component('article-short', {
     ],
     template: `
         <div class="article-short">
-            <h2>{{value.topic}}</h2>
+            <h2>
+                <router-link :to="viewURL" class="name">
+                    {{value.topic}}
+                </router-link>
+            </h2>
             <div class="article-categories">
                 <category class="chip" v-for="category in categories" :value="category" 
                     :key="category._id" no-controls="true"/>
+            </div>
+            <div class="controls">
+                <i class="fas fa-edit" @click="onEditClick"></i>
+                <i class="fas fa-trash" @click="onTrashClick"></i>
             </div>
         </div>
     `,
@@ -25,13 +33,29 @@ Vue.component('article-short', {
             this.load();
         }
     },
+    computed: {
+        viewURL: function() {
+            return `/article/${this.value._id}`;
+        },
+        editURL: function () {
+            return `/article/${this.value._id}/edit`;
+        }
+    },
     methods: {
         load: function() {
-            for (category of this.value.categories) {
+            for (let category of this.value.categories) {
                 axios.get(`/api/v1/categories/${category}`)
                     .then(res => this.categories.push(res.data))
                     .catch(console.error);
             }
+        },
+        onEditClick: function() {
+            router.push(this.editURL);
+        },
+        onTrashClick: function() {
+            axios.delete(`/api/v1/articles/${this.value._id}`)
+                .then(res => this.$emit('delete', res.data))
+                .catch(console.error);
         }
     }
 });
