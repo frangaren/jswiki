@@ -1,0 +1,36 @@
+.theme-selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.theme-selector .theme {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-left: 1rem;
+}
+
+.theme-selector .theme:first-child {
+    margin-left: 0;
+}
+
+
+.theme-selector .theme .slice {
+    width: 0.8rem;
+    height: 1.6rem;
+    border: 0.3rem solid var(--neutral-bg-color);
+}
+
+.theme-selector .theme .left.slice {
+    float: left;
+    background-color: var(--primary-bg-color);
+    border-radius: 1.6rem 0 0 1.6rem;
+    border-right: none;
+}
+
+.theme-selector .theme .right.slice {
+    float: right;
+    background-color: var(--accent-bg-color);
+    border-radius: 0 1.6rem 1.6rem 0;
+    border-left: none;
+}

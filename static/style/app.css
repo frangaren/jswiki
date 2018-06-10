@@ -179,7 +179,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
     background-color: white;
-    color: var(--neutral-fg-color);
+    color: black;
     border: none;
     border-bottom: 0.2rem solid var(--primary-bg-color);
 }
