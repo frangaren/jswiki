@@ -19,8 +19,8 @@
 }
 
 .register .controls {
-    display: flex;
-    justify-content: right;
+    margin-left: auto;
+    text-align: right;
 }
 
 .register .error {

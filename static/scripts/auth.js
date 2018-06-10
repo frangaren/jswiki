@@ -28,17 +28,19 @@ const auth = {
             access_token: this.state.details.access_token
         };
         localStorage.setItem('auth', JSON.stringify(this.state));
-        router.push('/');
+        router.go(router.currentRoute);
     }
 };
 
 if (localStorage.getItem('auth')) {
-    const authDetails = JSON.parse(localStorage.getItem('auth')).details;
-    auth.login(authDetails);
-    axios.post('/api/v1/tokens/check', authDetails)
-        .then(res => {
-            authDetails._id = res.data._id;
-            auth.login(authDetails);
-        })
-        .catch(error => auth.logout());
+    const savedAuth = JSON.parse(localStorage.getItem('auth'));
+    if (savedAuth.logged) {
+        auth.login(savedAuth.details);
+        axios.post('/api/v1/tokens/check', savedAuth.details)
+            .then(res => {
+                savedAuth.details._id = res.data._id;
+                auth.login(savedAuth.details);
+            })
+            .catch(error => auth.logout());
+    }
 }
