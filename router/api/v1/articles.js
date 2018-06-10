@@ -2,16 +2,23 @@
 
 const express = require('express');
 
+const path = require('path');
+
+const logged = require(path.join(__dirname, '..', '..', '..', 'middleware', 'logged.js'));
+
 const router = express.Router();
 
 router.get('/', listArticles);
 
+router.post('/', logged);
 router.post('/', createArticle);
 
 router.get('/:id', retrieveArticle);
 
+router.patch('/:id', logged);
 router.patch('/:id', updateArticle);
 
+router.delete('/:id', logged);
 router.delete('/:id', deleteArticle);
 
 function listArticles(req, res, next) {

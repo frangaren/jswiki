@@ -11,6 +11,9 @@ const auth = {
     login: function (details) {
         this.state.logged = true;
         this.state.details = details;
+        axios.defaults.params = {
+            access_token: this.state.details.access_token
+        };
         localStorage.setItem('auth', JSON.stringify(this.state));
     },
     logout: function() {
@@ -21,10 +24,19 @@ const auth = {
             expires_in: '',
             refresh_token: ''
         };
+        axios.defaults.params = {
+            access_token: this.state.details.access_token
+        };
         localStorage.setItem('auth', JSON.stringify(this.state));
     }
 };
 
 if (localStorage.getItem('auth')) {
-    auth.state = JSON.parse(localStorage.getItem('auth'));
+    const authDetails = JSON.parse(localStorage.getItem('auth')).details;
+    axios.post('/api/v1/tokens/check', authDetails)
+        .then(res => {
+            authDetails._id = res.data._id;
+            auth.login(authDetails);
+        })
+        .catch(error => auth.logout());
 }

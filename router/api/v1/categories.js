@@ -2,20 +2,27 @@
 
 const express = require('express');
 
+const path = require('path');
+
+const logged = require(path.join(__dirname, '..', '..', '..', 'middleware', 'logged.js'));
+
 const router = express.Router();
 
 router.get('/', listCategories);
 
 router.get('/:parent/children', listChildren);
 
+router.post('/', logged);
 router.post('/', createCategory);
 
 router.get('/:id', retrieveCategory);
 
 router.get('/:id/articles', retrieveArticles);
 
+router.patch('/:id', logged);
 router.patch('/:id', updateCategory);
 
+router.delete('/:id', logged);
 router.delete('/:id', deleteCategory);
 
 function listCategories(req, res, next) {

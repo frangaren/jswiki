@@ -2,6 +2,10 @@
 
 const express = require('express');
 
+const path = require('path');
+
+const logged = require(path.join(__dirname, '..', '..', '..', 'middleware', 'logged.js'));
+
 const router = express.Router();
 
 router.get('/', listUsers);
@@ -10,8 +14,10 @@ router.post('/', createUser);
 
 router.get('/:id', retrieveUser);
 
+router.patch('/:id', logged);
 router.patch('/:id', updateUser);
 
+router.delete('/:id', logged);
 router.delete('/:id', deleteUser);
 
 function listUsers(req, res, next) {
