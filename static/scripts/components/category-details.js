@@ -1,8 +1,11 @@
 Vue.component('category-details', {
     template: `
         <div class="category-details container">
-            <article-short v-for="article in articles" :value="article"
-                :key="article._id" @delete="onDelete"/>
+            <h2>{{category.name}}</h2>
+            <div class="articles">
+                <article-short v-for="article in articles" :value="article"
+                    :key="article._id" @delete="onDelete"/>
+            </div>
         </div>
     `,
     created: function () {
@@ -13,12 +16,18 @@ Vue.component('category-details', {
     },
     data: function () {
         return {
+            category: {
+                name: ''
+            },
             articles: []
         };
     },
     methods: {
         load: function () {
-            axios.get(`/api/v1/category/${this.$route.params.id}/articles`)
+            axios.get(`/api/v1/categories/${this.$route.params.id}`)
+                .then(res => this.category = res.data)
+                .catch(console.error);
+            axios.get(`/api/v1/categories/${this.$route.params.id}/articles`)
                 .then(res => this.articles = res.data)
                 .catch(console.error);
         },

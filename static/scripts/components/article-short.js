@@ -4,11 +4,11 @@ Vue.component('article-short', {
     ],
     template: `
         <div class="article-short">
-            <h2>
+            <h3>
                 <router-link :to="viewURL" class="name">
                     {{value.topic}}
                 </router-link>
-            </h2>
+            </h3>
             <div class="article-categories">
                 <category class="chip" v-for="category in categories" :value="category" 
                     :key="category._id" no-controls="true"/>

@@ -12,6 +12,8 @@ router.post('/', createCategory);
 
 router.get('/:id', retrieveCategory);
 
+router.get('/:id/articles', retrieveArticles);
+
 router.patch('/:id', updateCategory);
 
 router.delete('/:id', deleteCategory);
@@ -41,6 +43,13 @@ function createCategory(req, res, next) {
 function retrieveCategory(req, res, next) {
     const worker = req.app.get('worker');
     worker.categories.retrieve(req.params.id)
+        .then(res.json.bind(res))
+        .catch(next);
+}
+
+function retrieveArticles(req, res, next) {
+    const worker = req.app.get('worker');
+    worker.categories.retrieveArticles(req.params.id)
         .then(res.json.bind(res))
         .catch(next);
 }

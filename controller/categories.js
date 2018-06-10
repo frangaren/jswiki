@@ -3,6 +3,7 @@
 const path = require('path');
 
 const Category = require(path.join(__dirname, '..', 'model', 'category.js'));
+const Article = require(path.join(__dirname, '..', 'model', 'article.js'));
 
 exports.list = async function () {
     const categories = await Category.find().sort('name').exec();
@@ -26,6 +27,11 @@ exports.create = async function (name, parent) {
 exports.retrieve = async function (id) {
     const category = await Category.findById(id).exec();
     return category;
+}
+
+exports.retrieveArticles = async function (id) {
+    const articles = await Article.find({categories: id}).exec();
+    return articles;
 }
 
 exports.update = async function (id, newValues) {

@@ -12,15 +12,15 @@
     margin-left: 0;
 }
 
-.article-short h2 {
+.article-short h3 {
     margin-bottom: 0;
 }
 
-.article-short h2 a {
+.article-short h3 a {
     color: var(--primary-fg-color);
 }
 
-.article-short h2 a:hover {
+.article-short h3 a:hover {
     color: var(--accent-bg-color);
 }
 
