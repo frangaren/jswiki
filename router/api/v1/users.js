@@ -222,7 +222,7 @@ function validateUsername(req, res, next) {
         next();
     } else {
         const worker = req.app.get('worker');
-        worker.users.validateUsername(req.body.username)
+        worker.users.validateUsername(req.params.id, req.body.username)
             .then(reply => {
                 if (reply.valid) {
                     next();
@@ -241,7 +241,7 @@ function validateEmail(req, res, next) {
         next();
     } else {
         const worker = req.app.get('worker');
-        worker.users.validateEmail(req.body.email)
+        worker.users.validateEmail(req.params.id, req.body.email)
             .then(reply => {
                 if (reply.valid) {
                     next();

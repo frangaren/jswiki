@@ -77,7 +77,7 @@ exports.exists = async function (id) {
     } 
 }
 
-exports.validateUsername = async function (username) {
+exports.validateUsername = async function (id, username) {
     const regex = /^\w{3,16}$/gi;
     if (!regex.test(username)) {
         return {
@@ -86,7 +86,7 @@ exports.validateUsername = async function (username) {
         };
     } else {
         const user = await User.findOne({ username: username }).exec();
-        if (user != null) {
+        if (user != null && user._id != id) {
             return {
                 valid: false,
                 status: 409,
@@ -100,7 +100,7 @@ exports.validateUsername = async function (username) {
     }
 }
 
-exports.validateEmail = async function (email) {
+exports.validateEmail = async function (id, email) {
     const regex = /^\w+@\w+\.\w+$/gi;
     if (!regex.test(email)) {
         return {
@@ -109,7 +109,7 @@ exports.validateEmail = async function (email) {
         };
     } else {
         const user = await User.findOne({ email: email }).exec();
-        if (user != null) {
+        if (user != null && user._id != id) {
             return {
                 valid: false,
                 status: 409,

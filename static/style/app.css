@@ -221,5 +221,6 @@ pre {
 
 .error-message {
     color: #c62828!important;
+    font-weight: 400;
     padding: 1rem 0;
 }
