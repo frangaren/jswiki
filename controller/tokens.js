@@ -2,9 +2,12 @@
 
 const path = require('path');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
 const User = require(path.join(__dirname, '..', 'model', 'user.js'));
 const Token = require(path.join(__dirname, '..', 'model', 'token.js'));
+
+const saltRounds = 10;
 
 exports.issue = async function (id, ip) {
     let entry = await Token.findOne({ user: id, ip: ip }).exec();
@@ -79,7 +82,7 @@ exports.authenticate = async function (username, password) {
             valid: false
         };
     }
-    const result = password == user.password;
+    const result = await bcrypt.compare(password, user.password);
     if (result) {
         return {
             valid: true,

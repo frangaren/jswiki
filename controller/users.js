@@ -1,8 +1,12 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
+
 const path = require('path');
 
 const User = require(path.join(__dirname, '..', 'model', 'user.js'));
+
+const saltRounds = 10;
 
 exports.list = async function () {
     const users = await User.find().sort('username').exec();
@@ -140,4 +144,9 @@ exports.validatePassword = async function (password) {
                 'minúscula, una letra mayúscula, un número y un símbolo.'
         };
     }
+}
+
+exports.hashPassword = async function (password) {
+    let hashed = await bcrypt.hash(password, saltRounds);
+    return hashed;
 }

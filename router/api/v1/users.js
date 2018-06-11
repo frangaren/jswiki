@@ -17,6 +17,7 @@ router.post('/', requireEmail);
 router.post('/', validateUsername);
 router.post('/', validatePassword);
 router.post('/', validateEmail);
+router.post('/', hashPassword);
 router.post('/', createUser);
 
 router.get('/:id', userExists);
@@ -50,6 +51,7 @@ router.patch('/:id', userExists);
 router.patch('/:id', validateUsername);
 router.patch('/:id', validatePassword);
 router.patch('/:id', validateEmail);
+router.patch('/:id', hashPassword);
 router.patch('/:id', updateUser);
 
 router.delete('/:id', logged);
@@ -288,6 +290,20 @@ function validateArticle(req, res, next) {
                     error.status = 422;
                     next(error);
                 }
+            })
+            .catch(next);
+    }
+}
+
+function hashPassword(req, res, next) {
+    if (!('password' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.users.hashPassword(req.body.password)
+            .then(reply => {
+                req.body.password = reply;
+                next();
             })
             .catch(next);
     }
