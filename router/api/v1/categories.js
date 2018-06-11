@@ -138,6 +138,11 @@ function validateParent(req, res, next) {
             next();
             return;
         }
+        if (req.params.id && req.body.parent === req.params.id) {
+            let error = new Error('No se permite a una categoría ser su propio padre.');
+            error.status = 422;
+            next(error);
+        }
         worker.categories.exists(req.body.parent)
             .then(reply => {
                 if (reply) {
