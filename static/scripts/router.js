@@ -10,7 +10,8 @@ const routes = [
     {path: '/profile/:id', component: Vue.component('profile') },
     {path: '/login', component: Vue.component('login')},
     {path: '/register', component: Vue.component('register')},
-    {path: '/logout', beforeEnter: auth.logout.bind(auth)}
+    {path: '/logout', beforeEnter: auth.logout.bind(auth)},
+    {path: '/error/:number', component: Vue.component('error')}
 ];
 
 const router = new VueRouter({
@@ -25,3 +26,7 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
+function handleError(error) {
+    router.push(`/error/${error.response.status}`);
+}

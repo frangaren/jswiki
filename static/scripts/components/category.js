@@ -50,12 +50,12 @@ Vue.component('category', {
             this.editing = false;
             axios.patch(`/api/v1/categories/${this.value._id}`, newValue)
                 .then(res => this.$emit('input', res.data))
-                .catch(console.error);
+                .catch(handleError);
         },
         onTrashClick: function () {
             axios.delete(`/api/v1/categories/${this.value._id}`)
                 .then(res => this.$emit('delete', res.data))
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });

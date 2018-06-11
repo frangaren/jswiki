@@ -42,7 +42,7 @@ Vue.component('login', {
                     if (error.response.status === 400) {
                         this.error = error.response.data.error_description;
                     } else {
-                        console.error(error);
+                        handleError(error);
                     }
                 });
             event.preventDefault();

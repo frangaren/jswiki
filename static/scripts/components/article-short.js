@@ -53,7 +53,7 @@ Vue.component('article-short', {
             for (let category of this.value.categories) {
                 axios.get(`/api/v1/categories/${category}`)
                     .then(res => this.categories.push(res.data))
-                    .catch(console.error);
+                    .catch(handleError);
             }
         },
         onEditClick: function() {
@@ -65,7 +65,7 @@ Vue.component('article-short', {
         onTrashClick: function() {
             axios.delete(`/api/v1/articles/${this.value._id}`)
                 .then(res => this.$emit('delete', res.data))
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });

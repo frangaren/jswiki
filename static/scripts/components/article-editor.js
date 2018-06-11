@@ -98,7 +98,7 @@ Vue.component('article-editor', {
                         }
                     }
                 })
-                .catch(console.error);
+                .catch(handleError);
         },
         onEditTopicClick: function() {
             this.editingTitle = true;

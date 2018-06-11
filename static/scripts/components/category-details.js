@@ -26,10 +26,10 @@ Vue.component('category-details', {
         load: function () {
             axios.get(`/api/v1/categories/${this.$route.params.id}`)
                 .then(res => this.category = res.data)
-                .catch(console.error);
+                .catch(handleError);
             axios.get(`/api/v1/categories/${this.$route.params.id}/articles`)
                 .then(res => this.articles = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onDelete: function (article) {
             for (let i = 0; i < this.articles.length; i++) {

@@ -1,0 +1,8 @@
+.error {
+    flex-grow: 1;
+    margin: auto auto;
+}
+
+.error h2 {
+    font-size: 8rem;
+}

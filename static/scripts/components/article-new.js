@@ -20,7 +20,7 @@ Vue.component('article-new', {
                     this.article = res.data;
                     router.push(`/article/${this.article._id}`);
                 })
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });

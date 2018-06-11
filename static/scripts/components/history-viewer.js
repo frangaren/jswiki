@@ -102,7 +102,7 @@ Vue.component('history-viewer', {
                         this.history = res.data;
                         this.comparisonHistoric = this.history[0];
                     })
-                    .catch(console.error);
+                    .catch(handleError);
             }
         },
         onRestore: function() {

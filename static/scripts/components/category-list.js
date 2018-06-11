@@ -29,13 +29,13 @@ Vue.component('category-list', {
         load: function() {
             axios.get(`/api/v1/categories/${this.value._id}/children`)
                 .then(res => this.categories = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onAdd: function(event) {
             const category = this.categories[event.newIndex];
             category.parent = this.value._id;
             axios.patch(`/api/v1/categories/${category._id}`, category)
-                .catch(console.error);
+                .catch(handleError);
         },
         onDelete: function(category) {
             for (let i = 0; i < this.categories.length; i++) {

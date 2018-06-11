@@ -23,7 +23,7 @@ Vue.component('article-edit', {
         load: function () {
             axios.get(`/api/v1/articles/${this.$route.params.id}`)
                 .then(res => this.article = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onDelete: function () {
             router.go(-1);
@@ -34,7 +34,7 @@ Vue.component('article-edit', {
                     this.article = res.data;
                     router.push(`/article/${this.article._id}`);
                 })
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });

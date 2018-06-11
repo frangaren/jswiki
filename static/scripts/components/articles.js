@@ -26,7 +26,7 @@ Vue.component('articles', {
         load: function() {
             axios.get(`/api/v1/articles`)
                 .then(res => this.articles = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onDelete: function(article) {
             for (let i = 0; i < this.articles.length; i++) {

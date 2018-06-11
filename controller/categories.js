@@ -62,6 +62,10 @@ exports.delete = async function (id) {
 }
 
 exports.exists = async function (id) {
-    const category = await Category.findById(id).exec();
-    return category !== null;
+    try {
+        const category = await Category.findById(id).exec();
+        return category !== null;
+    } catch {
+        return false;
+    }
 }

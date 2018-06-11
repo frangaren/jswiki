@@ -48,7 +48,7 @@ Vue.component('register', {
                     router.push('/');
                 })
                 .catch(error => {
-                    console.error(error);
+                    handleError(error);
                 });
             event.preventDefault();
         }

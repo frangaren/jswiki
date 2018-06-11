@@ -68,6 +68,10 @@ exports.delete = async function (id) {
 }
 
 exports.exists = async function (id) {
-    const user = await User.findById(id).exec();
-    return user !== null;
+    try {
+        const user = await User.findById(id).exec();
+        return user !== null;
+    } catch {
+        return false;
+    } 
 }

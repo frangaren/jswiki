@@ -29,7 +29,7 @@ Vue.component('favorite-button', {
             if (this.article._id != undefined) {
                 axios.get(`/api/v1/users/${this.auth.details._id}/favorites/${this.article._id}`)
                     .then(res => this.status = res.data['is-favorite'])
-                    .catch(console.error);
+                    .catch(handleError);
             }
         },
         toggleFavorite: function() {
@@ -37,12 +37,12 @@ Vue.component('favorite-button', {
                 axios.delete(`/api/v1/users/${this.auth.details._id}/favorites`,
                     {data: {article: this.article._id}})
                     .then(res => this.status = false)
-                    .catch(console.error);
+                    .catch(handleError);
             } else {
                 axios.post(`/api/v1/users/${this.auth.details._id}/favorites`,
                     {article: this.article._id})
                     .then(res => this.status = true)
-                    .catch(console.error);
+                    .catch(handleError);
             }
         }
     }

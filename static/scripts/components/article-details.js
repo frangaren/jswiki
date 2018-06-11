@@ -23,7 +23,7 @@ Vue.component('article-details', {
         load: function () {
             axios.get(`/api/v1/articles/${this.$route.params.id}`)
                 .then(res => this.article = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onDelete: function () {
             router.go(-1);

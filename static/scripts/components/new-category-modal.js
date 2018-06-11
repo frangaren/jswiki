@@ -38,7 +38,7 @@ Vue.component('new-category-modal', {
                     this.$emit('create', res.data);
                     this.$emit('close');
                 })
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });

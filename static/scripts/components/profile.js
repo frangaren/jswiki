@@ -80,7 +80,7 @@ Vue.component('profile', {
     created: function () {
         this.load();
     },
-    beforeRouteUpdate: function () {
+    onRouteUpdate: function () {
         this.load();
     },
     computed: {
@@ -96,10 +96,10 @@ Vue.component('profile', {
                     this.user = res.data;
                     this.copyUser;
                 })
-                .catch(console.error);
+                .catch(handleError);
             axios.get(`/api/v1/users/${this.$route.params.id}/favorites`)
                 .then(res => this.favorites = res.data)
-                .catch(console.error);
+                .catch(handleError);
         },
         onEditClick: function() {
             this.copyUser();
@@ -119,7 +119,7 @@ Vue.component('profile', {
         patchDatabase: function() {
             axios.patch(`/api/v1/users/${this.$route.params.id}`, this.copy)
                 .then(res => this.user = res.data)
-                .catch(console.error);
+                .catch(handleError);
         }
     }
 });
