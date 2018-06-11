@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-.history-viewer header {
+.history-viewer > header {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -45,7 +45,7 @@
     color: var(--accent-fg-color);
 }
 
-.history-viewer header .controls {
+.history-viewer > header .controls {
     margin-left: auto;
 }
 
