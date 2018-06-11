@@ -41,6 +41,10 @@ Vue.component('history-viewer', {
                             removed: diff.removed}">{{diff.value}}</span>
                     </h3>
                 </div>
+                <div class="author">
+                    por <router-link :to="authorURL">{{author.username}}({{author.name}})
+                    </router-link>
+                </div>
                 <div class="diff neutral">
                     <span v-for="diff in bodyDiffs" :class="{added: diff.added, 
                         removed: diff.removed}">{{diff.value}}</span>
@@ -60,6 +64,10 @@ Vue.component('history-viewer', {
                 topic: '',
                 body: '',
                 categories: []
+            },
+            author: {
+                username: '',
+                name: ''
             },
             history: [],
             comparisonHistoric: [],
@@ -81,6 +89,9 @@ Vue.component('history-viewer', {
                 return [];
             }
         },
+        authorURL: function () {
+            return `/profile/${this.comparisonHistoric.author}`;
+        }
     },
     watch: {
         value: function() {
@@ -89,6 +100,13 @@ Vue.component('history-viewer', {
         comparisonHistoric: function() {
             this.article.topic = this.comparisonHistoric.topic;
             this.article.body = this.comparisonHistoric.body;
+            if (this.comparisonHistoric.author) {
+                axios.get(`/api/v1/users/${this.comparisonHistoric.author}`)
+                    .then(res => {
+                        this.author = res.data;
+                    })
+                    .catch(handleError);
+            }
         }
     },
     methods: {

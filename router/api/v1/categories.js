@@ -157,7 +157,7 @@ function validateName(req, res, next) {
         next();
     } else {
         const worker = req.app.get('worker');
-        worker.categories.validateName(req.body.name)
+        worker.categories.validateName(req.params.id, req.body.name)
             .then(reply => {
                 if (reply.valid) {
                     next();

@@ -70,9 +70,9 @@ exports.exists = async function (id) {
     }
 }
 
-exports.validateName = async function(name) {
+exports.validateName = async function(id, name) {
     const category = await Category.findOne({ name: name }).exec();
-    if (category != null) {
+    if (category != null && category._id != id) {
         return {
             valid: false,
             status: 409,
