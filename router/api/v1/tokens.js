@@ -4,12 +4,16 @@ const express = require('express');
 
 const router = express.Router();
 
+router.post('/grant', requireUsername);
+router.post('/grant', requirePassword);
 router.post('/grant', authenticate);
 router.post('/grant', issue);
 
+router.post('/grant', requireRefreshToken);
 router.post('/refresh', refresh);
 router.post('/refresh', issue);
 
+router.post('/grant', requireAccessToken);
 router.post('/check', check);
 
 function issue(req, res, next) {
@@ -73,6 +77,46 @@ function check(req, res, next) {
             }
         })
         .catch(next);
+}
+
+function requireUsername(req, res, next) {
+    if (!('username' in req.body)) {
+        let error = new Error('Username Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requirePassword(req, res, next) {
+    if (!('password' in req.body)) {
+        let error = new Error('Password Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireAccessToken(req, res, next) {
+    if (!('access_token' in req.body)) {
+        let error = new Error('AccessToken Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireRefreshToken(req, res, next) {
+    if (!('refresh_token' in req.body)) {
+        let error = new Error('RefreshToken Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
 }
 
 module.exports = router;

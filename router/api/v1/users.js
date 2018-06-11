@@ -10,6 +10,10 @@ const router = express.Router();
 
 router.get('/', listUsers);
 
+router.post('/', requireUsername);
+router.post('/', requirePassword);
+router.post('/', requireName);
+router.post('/', requireEmail);
 router.post('/', createUser);
 
 router.get('/:id', userExists);
@@ -21,11 +25,13 @@ router.get('/:id/favorites', retrieveFavorites);
 router.post('/:id/favorites', logged);
 router.post('/:id/favorites', checkPermission);
 router.post('/:id/favorites', userExists);
+router.post('/:id/favorites', requireArticle);
 router.post('/:id/favorites', addFavorite);
 
 router.delete('/:id/favorites', logged);
 router.delete('/:id/favorites', checkPermission);
 router.delete('/:id/favorites', userExists);
+router.delete('/:id/favorites', requireArticle);
 router.delete('/:id/favorites', deleteFavorite);
 
 router.get('/:id/favorites/:article', logged);
@@ -151,6 +157,56 @@ function articleExists(req, res, next) {
             }
         })
         .catch(next);
+}
+
+function requireUsername(req, res, next) {
+    if (!('username' in req.body)) {
+        let error = new Error('Username Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireEmail(req, res, next) {
+    if (!('email' in req.body)) {
+        let error = new Error('Email Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireName(req, res, next) {
+    if (!('name' in req.body)) {
+        let error = new Error('Name Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requirePassword(req, res, next) {
+    if (!('password' in req.body)) {
+        let error = new Error('Password Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireArticle(req, res, next) {
+    if (!('article' in req.body)) {
+        let error = new Error('Article Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
 }
 
 module.exports = router;

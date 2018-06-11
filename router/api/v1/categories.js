@@ -14,6 +14,8 @@ router.get('/:id/children', categoryExists);
 router.get('/:id/children', listChildren);
 
 router.post('/', logged);
+router.post('/', requireName);
+router.post('/', requireParent);
 router.post('/', createCategory);
 
 router.get('/:id', categoryExists);
@@ -101,6 +103,26 @@ function categoryExists(req, res, next) {
             }
         })
         .catch(next);
+}
+
+function requireName(req, res, next) {
+    if (!('name' in req.body)) {
+        let error = new Error('Name Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireParent(req, res, next) {
+    if (!('parent' in req.body)) {
+        let error = new Error('Parent Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
 }
 
 module.exports = router;

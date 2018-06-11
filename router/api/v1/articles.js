@@ -11,6 +11,9 @@ const router = express.Router();
 router.get('/', listArticles);
 
 router.post('/', logged);
+router.post('/', requireTopic);
+router.post('/', requireBody);
+router.post('/', requireCategories);
 router.post('/', createArticle);
 
 router.get('/:id', articleExists);
@@ -88,6 +91,36 @@ function articleExists(req, res, next) {
             }
         })
         .catch(next);
+}
+
+function requireTopic(req, res, next) {
+    if (!('topic' in req.body)) {
+        let error = new Error('Topic Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireBody(req, res, next) {
+    if (!('body' in req.body)) {
+        let error = new Error('Body Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
+}
+
+function requireCategories(req, res, next) {
+    if (!('categories' in req.body)) {
+        let error = new Error('Categories Not Provided');
+        error.status = 422;
+        next(error);
+    } else {
+        next();
+    }
 }
 
 module.exports = router;
