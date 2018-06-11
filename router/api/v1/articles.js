@@ -14,6 +14,7 @@ router.post('/', logged);
 router.post('/', requireTopic);
 router.post('/', requireBody);
 router.post('/', requireCategories);
+router.post('/', validateCategories);
 router.post('/', createArticle);
 
 router.get('/:id', articleExists);
@@ -24,6 +25,7 @@ router.get('/:id/history', retrieveHistory);
 
 router.patch('/:id', logged);
 router.patch('/:id', articleExists);
+router.patch('/:id', validateCategories);
 router.patch('/:id', updateArticle);
 
 router.delete('/:id', logged);
@@ -120,6 +122,34 @@ function requireCategories(req, res, next) {
         next(error);
     } else {
         next();
+    }
+}
+
+function validateCategories(req, res, next) {
+    if (!('categories' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        async function _validate() {
+            for (let category of req.body.categories) {
+                let reply = await worker.categories.exists(category);
+                if (!reply) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        _validate()
+            .then(reply => {
+                if (reply) {
+                    next();
+                } else {
+                    let error = new Error('La categoría padre no existe.');
+                    error.status = 422;
+                    next(error);
+                }
+            })
+            .catch(next);
     }
 }
 

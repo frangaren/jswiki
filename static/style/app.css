@@ -218,3 +218,7 @@ pre {
     padding: 1rem;
     border-radius: 0.3rem;
 }
+
+.error-message {
+    color: #c62828!important;
+}

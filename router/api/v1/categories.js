@@ -16,6 +16,8 @@ router.get('/:id/children', listChildren);
 router.post('/', logged);
 router.post('/', requireName);
 router.post('/', requireParent);
+router.post('/', validateName);
+router.post('/', validateParent);
 router.post('/', createCategory);
 
 router.get('/:id', categoryExists);
@@ -26,6 +28,8 @@ router.get('/:id/articles', retrieveArticles);
 
 router.patch('/:id', logged);
 router.patch('/:id', categoryExists);
+router.patch('/:id', validateName);
+router.patch('/:id', validateParent);
 router.patch('/:id', updateCategory);
 
 router.delete('/:id', logged);
@@ -97,7 +101,7 @@ function categoryExists(req, res, next) {
             if (reply) {
                 next();
             } else {
-                let error = new Error('Category Not Found');
+                let error = new Error('La categoría no existe.');
                 error.status = 404;
                 next(error);
             }
@@ -107,7 +111,7 @@ function categoryExists(req, res, next) {
 
 function requireName(req, res, next) {
     if (!('name' in req.body)) {
-        let error = new Error('Name Not Provided');
+        let error = new Error('El nombre es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -117,11 +121,53 @@ function requireName(req, res, next) {
 
 function requireParent(req, res, next) {
     if (!('parent' in req.body)) {
-        let error = new Error('Parent Not Provided');
+        let error = new Error('La categoría padre es obligatoria.');
         error.status = 422;
         next(error);
     } else {
         next();
+    }
+}
+
+function validateParent(req, res, next) {
+    if (!('parent' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        if (req.body.parent === 'root') {
+            next();
+            return;
+        }
+        worker.categories.exists(req.body.parent)
+            .then(reply => {
+                if (reply) {
+                    next();
+                } else {
+                    let error = new Error('La categoría padre no existe.');
+                    error.status = 422;
+                    next(error);
+                }
+            })
+            .catch(next);
+    }
+}
+
+function validateName(req, res, next) {
+    if (!('name' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.categories.validateName(req.body.name)
+            .then(reply => {
+                if (reply.valid) {
+                    next();
+                } else {
+                    let error = new Error(`Nombre inválido: ${reply.tip}`);
+                    error.status = reply.status || 422;
+                    next(error);
+                }
+            })
+            .catch(next);
     }
 }
 

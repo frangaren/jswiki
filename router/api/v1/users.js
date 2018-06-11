@@ -14,6 +14,9 @@ router.post('/', requireUsername);
 router.post('/', requirePassword);
 router.post('/', requireName);
 router.post('/', requireEmail);
+router.post('/', validateUsername);
+router.post('/', validatePassword);
+router.post('/', validateEmail);
 router.post('/', createUser);
 
 router.get('/:id', userExists);
@@ -26,12 +29,14 @@ router.post('/:id/favorites', logged);
 router.post('/:id/favorites', checkPermission);
 router.post('/:id/favorites', userExists);
 router.post('/:id/favorites', requireArticle);
+router.post('/:id/favorites', validateArticle);
 router.post('/:id/favorites', addFavorite);
 
 router.delete('/:id/favorites', logged);
 router.delete('/:id/favorites', checkPermission);
 router.delete('/:id/favorites', userExists);
 router.delete('/:id/favorites', requireArticle);
+router.delete('/:id/favorites', validateArticle);
 router.delete('/:id/favorites', deleteFavorite);
 
 router.get('/:id/favorites/:article', logged);
@@ -42,6 +47,9 @@ router.get('/:id/favorites/:article', containsFavorite);
 router.patch('/:id', logged);
 router.patch('/:id', checkPermission);
 router.patch('/:id', userExists);
+router.patch('/:id', validateUsername);
+router.patch('/:id', validatePassword);
+router.patch('/:id', validateEmail);
 router.patch('/:id', updateUser);
 
 router.delete('/:id', logged);
@@ -161,7 +169,7 @@ function articleExists(req, res, next) {
 
 function requireUsername(req, res, next) {
     if (!('username' in req.body)) {
-        let error = new Error('Username Not Provided');
+        let error = new Error('El usuario es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -171,7 +179,7 @@ function requireUsername(req, res, next) {
 
 function requireEmail(req, res, next) {
     if (!('email' in req.body)) {
-        let error = new Error('Email Not Provided');
+        let error = new Error('El correo es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -181,7 +189,7 @@ function requireEmail(req, res, next) {
 
 function requireName(req, res, next) {
     if (!('name' in req.body)) {
-        let error = new Error('Name Not Provided');
+        let error = new Error('El nombre es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -191,7 +199,7 @@ function requireName(req, res, next) {
 
 function requirePassword(req, res, next) {
     if (!('password' in req.body)) {
-        let error = new Error('Password Not Provided');
+        let error = new Error('La contraseña es obligatoria.');
         error.status = 422;
         next(error);
     } else {
@@ -201,11 +209,87 @@ function requirePassword(req, res, next) {
 
 function requireArticle(req, res, next) {
     if (!('article' in req.body)) {
-        let error = new Error('Article Not Provided');
+        let error = new Error('El artículo es obligatorio.');
         error.status = 422;
         next(error);
     } else {
         next();
+    }
+}
+
+function validateUsername(req, res, next) {
+    if (!('username' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.users.validateUsername(req.body.username)
+            .then(reply => {
+                if (reply.valid) {
+                    next();
+                } else {
+                    let error = new Error(`Usuario inválido: ${reply.tip}`);
+                    error.status = reply.status || 422;
+                    next(error);
+                }
+            })
+            .catch(next);
+    }
+}
+
+function validateEmail(req, res, next) {
+    if (!('email' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.users.validateEmail(req.body.email)
+            .then(reply => {
+                if (reply.valid) {
+                    next();
+                } else {
+                    let error = new Error(`Correo electrónico inválido: ${reply.tip}`);
+                    error.status = reply.status || 422;
+                    next(error);
+                }
+            })
+            .catch(next);
+    }
+}
+
+function validatePassword(req, res, next) {
+    if (!('password' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.users.validatePassword(req.body.password)
+            .then(reply => {
+                if (reply.valid) {
+                    next();
+                } else {
+                    let error = new Error(`Contraseña inválida: ${reply.tip}`);
+                    error.status = reply.status || 422;
+                    next(error);
+                }
+            })
+            .catch(next);
+    }
+}
+
+function validateArticle(req, res, next) {
+    if (!('article' in req.body)) {
+        next();
+    } else {
+        const worker = req.app.get('worker');
+        worker.articles.exists(req.body.article)
+            .then(reply => {
+                if (reply) {
+                    next();
+                } else {
+                    let error = new Error('El artículo no existe');
+                    error.status = 422;
+                    next(error);
+                }
+            })
+            .catch(next);
     }
 }
 

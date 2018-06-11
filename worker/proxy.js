@@ -56,12 +56,14 @@ function WorkerProxy(worker) {
                 path: target.path,
                 args: args
             });
-            target.path = [];
             return outcome;
         },
         get: function (target, property, receiver) {
-            target.path.push(property);
-            return new Proxy(target, handler);
+            const newTarget = function(){};
+            newTarget.worker = target.worker;
+            newTarget.path = target.path.slice();
+            newTarget.path.push(property);
+            return new Proxy(newTarget, handler);
         }
     };
     return new Proxy(target, handler);

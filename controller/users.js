@@ -58,6 +58,7 @@ exports.update = async function (id, newValues) {
     user.name = newValues.name || user.name;
     user.password = newValues.password || user.password;
     user = await user.save();
+    delete user.password;
     return user;
 }
 
@@ -74,4 +75,69 @@ exports.exists = async function (id) {
     } catch {
         return false;
     } 
+}
+
+exports.validateUsername = async function (username) {
+    const regex = /^\w{3,16}$/gi;
+    if (!regex.test(username)) {
+        return {
+            valid: false,
+            tip: 'Formato de usuario inválido.'
+        };
+    } else {
+        const user = await User.findOne({ username: username }).exec();
+        if (user != null) {
+            return {
+                valid: false,
+                status: 409,
+                tip: 'El nombre de usuario no está libre.'
+            };
+        } else {
+            return {
+                valid: true
+            }
+        }
+    }
+}
+
+exports.validateEmail = async function (email) {
+    const regex = /^\w+@\w+\.\w+$/gi;
+    if (!regex.test(email)) {
+        return {
+            valid: false,
+            tip: 'Formato de correo electrónico inválido.'
+        };
+    } else {
+        const user = await User.findOne({ email: email }).exec();
+        if (user != null) {
+            return {
+                valid: false,
+                status: 409,
+                tip: 'Ya existe una cuenta con ese correo.'
+            };
+        } else {
+            return {
+                valid: true
+            }
+        }
+    }
+}
+
+exports.validatePassword = async function (password) {
+    const lowercaseLetters = /[a-z]/g.test(password);
+    const uppercaseLetters = /[A-Z]/g.test(password);
+    const numbers = /[0-9]/g.test(password);
+    const symbols = /[^A-Z0-9a-z]/g.test(password);
+    const length = password.length;
+    if (lowercaseLetters && uppercaseLetters && numbers && symbols && length >= 8) {
+        return {
+            valid: true
+        };
+    } else {
+        return {
+            valid: false,
+            tip: 'Las contraseñas deben tener al menos 8 caracteres: una letra' +
+                'minúscula, una letra mayúscula, un número y un símbolo.'
+        };
+    }
 }

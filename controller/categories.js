@@ -69,3 +69,18 @@ exports.exists = async function (id) {
         return false;
     }
 }
+
+exports.validateName = async function(name) {
+    const category = await Category.findOne({ name: name }).exec();
+    if (category != null) {
+        return {
+            valid: false,
+            status: 409,
+            tip: 'Ya existe una cateogría con ese nombre.'
+        };
+    } else {
+        return {
+            valid: true
+        }
+    }
+}
