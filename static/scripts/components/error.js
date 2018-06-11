@@ -11,7 +11,8 @@ Vue.component('error', {
         description: function() {
             const descriptions = {
                 404: 'No encontrado',
-                500: 'Error interno'
+                500: 'Error interno',
+                400: 'No autorizado'
             };
             return descriptions[this.$route.params.number] || '';
         }

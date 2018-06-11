@@ -2,6 +2,7 @@
     max-height: 100%;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .article-editor > header {
@@ -63,6 +64,12 @@
 }
 
 .article-editor .editor {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-editor .editor textarea  {
     flex-grow: 1;
 }
 

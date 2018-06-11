@@ -5,6 +5,7 @@ Vue.component('category', {
     ],
     template: `
         <div class="category">
+            <i class="fas fa-bars handle" v-if="!noControls && value._id !== 'root'"></i>
             <new-category-modal :parent="value._id" v-if="modalVisible" 
                 @close="modalVisible = false" @create="$emit('create', $event)"/>
             <router-link :to="URL" class="name" v-if="!editing">

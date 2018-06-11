@@ -7,7 +7,7 @@ Vue.component('category-list', {
             <category :value="value" @input="$emit('input', $event)"
                 @delete="$emit('delete', $event)" @create="onCreate"/>
             <draggable class="category-children" v-model="categories"
-                :options="{group: 'categories'}"
+                :options="{group: 'categories', handle: '.handle'}"
                 @add="onAdd">
                 <category-list v-for="category in categories" :key="category._id" 
                     @delete="onDelete" :value="category" @input="onUpdate(category, $event)"/>

@@ -1,6 +1,6 @@
 Vue.component('article-edit', {
     template: `
-        <div class="article-edit container">
+        <div class="article-edit container flex">
             <div class="error-message">
                 {{error}}
             </div>

@@ -215,6 +215,7 @@ blockquote {
 pre {
     border: 0.1rem solid var(--primary-bg-color);
     background: var(--neutral-alt-bg-color);
+    color: #161616;
     padding: 1rem;
     border-radius: 0.3rem;
 }

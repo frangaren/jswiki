@@ -118,9 +118,11 @@ Vue.component('profile', {
             this.copy.name = this.user.name;
             this.copy.username = this.user.username;
             this.copy.email = this.user.email;
-            this.copy.password = this.user.password;
         },
         patchDatabase: function() {
+            if (this.copy.password === '') {
+                this.copy.password = undefined;
+            }
             axios.patch(`/api/v1/users/${this.$route.params.id}`, this.copy)
                 .then(res => {
                     this.user = res.data;

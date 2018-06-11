@@ -34,6 +34,7 @@ Vue.component('history-viewer', {
                     deselectLabel="Quitar"
                     label="date"
                     track-by="_id"
+                    @input="onComparisonHistoricChange"
                     ></multiselect>
                 <div class="title">
                     <h3 class="title-field">
@@ -97,17 +98,6 @@ Vue.component('history-viewer', {
         value: function() {
             this.load();
         },
-        comparisonHistoric: function() {
-            this.article.topic = this.comparisonHistoric.topic;
-            this.article.body = this.comparisonHistoric.body;
-            if (this.comparisonHistoric.author) {
-                axios.get(`/api/v1/users/${this.comparisonHistoric.author}`)
-                    .then(res => {
-                        this.author = res.data;
-                    })
-                    .catch(handleError);
-            }
-        }
     },
     methods: {
         load: function() {
@@ -119,6 +109,7 @@ Vue.component('history-viewer', {
                     .then(res => {
                         this.history = res.data;
                         this.comparisonHistoric = this.history[0];
+                        this.onComparisonHistoricChange();
                     })
                     .catch(handleError);
             }
@@ -131,6 +122,17 @@ Vue.component('history-viewer', {
             this.showPreview = true;
             if (MathJax) {
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }
+        },
+        onComparisonHistoricChange: function() {
+            this.article.topic = this.comparisonHistoric.topic;
+            this.article.body = this.comparisonHistoric.body;
+            if (this.comparisonHistoric.author) {
+                axios.get(`/api/v1/users/${this.comparisonHistoric.author}`)
+                    .then(res => {
+                        this.author = res.data;
+                    })
+                    .catch(handleError);
             }
         }
     }

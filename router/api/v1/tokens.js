@@ -9,11 +9,11 @@ router.post('/grant', requirePassword);
 router.post('/grant', authenticate);
 router.post('/grant', issue);
 
-router.post('/grant', requireRefreshToken);
+router.post('/refresh', requireRefreshToken);
 router.post('/refresh', refresh);
 router.post('/refresh', issue);
 
-router.post('/grant', requireAccessToken);
+router.post('/check', requireAccessToken);
 router.post('/check', check);
 
 function issue(req, res, next) {

@@ -224,3 +224,7 @@ blockquote {
 .text-align-justify {
     text-align: justify;
 }
+
+.flex {
+    display: flex;
+}

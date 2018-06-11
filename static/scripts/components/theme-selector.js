@@ -36,8 +36,8 @@ Vue.component('theme-selector', {
                     '--accent-fg-color': '#262626',
                     '--neutral-bg-color': '#262626',
                     '--neutral-fg-color': '#fff',
-                    '--neutral-alt-bg-color': '#424242',
-                    '--neutral-alt-fg-color': '#ccc'
+                    '--neutral-alt-bg-color': '#eeeeee',
+                    '--neutral-alt-fg-color': '#848484'
                 },
                 {
                     '--primary-bg-light': '#56c8d8',
