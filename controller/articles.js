@@ -4,6 +4,7 @@ const path = require('path');
 
 const Article = require(path.join(__dirname, '..', 'model', 'article.js'));
 const Historic = require(path.join(__dirname, '..', 'model', 'historic.js'));
+const User = require(path.join(__dirname, '..', 'model', 'user.js'));
 
 exports.list = async function () {
     const articles = await Article.find().sort('topic').exec();
@@ -55,5 +56,10 @@ exports.update = async function (id, newValues, author) {
 exports.delete = async function (id) {
     const article = await Article.findByIdAndRemove(id).exec();
     await Historic.find({article: id}).remove().exec();
+    const users = await User.find({favorites: id});
+    for (let user of users) {
+        user.favorites = user.favorites.filter(favorite => favorite != id);
+        user.save();
+    }
     return article;
 }

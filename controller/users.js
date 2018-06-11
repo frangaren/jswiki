@@ -63,5 +63,6 @@ exports.update = async function (id, newValues) {
 
 exports.delete = async function (id) {
     const user = await User.findByIdAndRemove(id).exec();
+    await Historic.find({ author: id }).remove().exec();
     return user;
 }
