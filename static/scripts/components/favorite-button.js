@@ -26,9 +26,11 @@ Vue.component('favorite-button', {
     },
     methods: {
         load: function() {
-            axios.get(`/api/v1/users/${this.auth.details._id}/favorites/${this.article._id}`)
-                .then(res => this.status = res.data['is-favorite'])
-                .catch(console.error);
+            if (this.article._id != undefined) {
+                axios.get(`/api/v1/users/${this.auth.details._id}/favorites/${this.article._id}`)
+                    .then(res => this.status = res.data['is-favorite'])
+                    .catch(console.error);
+            }
         },
         toggleFavorite: function() {
             if (this.status) {

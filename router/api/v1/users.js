@@ -12,27 +12,36 @@ router.get('/', listUsers);
 
 router.post('/', createUser);
 
+router.get('/:id', userExists);
 router.get('/:id', retrieveUser);
 
-router.get('/:id/favorites', logged);
+router.get('/:id/favorites', userExists);
 router.get('/:id/favorites', retrieveFavorites);
 
 router.post('/:id/favorites', logged);
+router.post('/:id/favorites', checkPermission);
+router.post('/:id/favorites', userExists);
 router.post('/:id/favorites', addFavorite);
 
 router.delete('/:id/favorites', logged);
+router.delete('/:id/favorites', checkPermission);
+router.delete('/:id/favorites', userExists);
 router.delete('/:id/favorites', deleteFavorite);
 
 router.get('/:id/favorites/:article', logged);
+router.get('/:id/favorites/:article', userExists);
+router.get('/:id/favorites/:article', articleExists);
 router.get('/:id/favorites/:article', containsFavorite);
 
 router.patch('/:id', logged);
+router.patch('/:id', checkPermission);
+router.patch('/:id', userExists);
 router.patch('/:id', updateUser);
 
-/* You're not allowed to delete your account.
- * router.delete('/:id', logged);
- * router.delete('/:id', deleteUser);
- */
+router.delete('/:id', logged);
+router.delete('/:id', checkPermission);
+router.delete('/:id', userExists);
+router.delete('/:id', deleteUser);
 
 function listUsers(req, res, next) {
     const worker = req.app.get('worker');
@@ -101,6 +110,46 @@ function deleteUser(req, res, next) {
     const worker = req.app.get('worker');
     worker.users.delete(req.params.id)
         .then(res.json.bind(res))
+        .catch(next);
+}
+
+function checkPermission(req, res, next) {
+    if (req.body.currentUser == req.params.id) {
+        next();
+    } else {
+        const error = new Error('You don\'t have permission over this user.');
+        error.status = 401;
+        next(error);
+    }
+}
+
+function userExists(req, res, next) {
+    const worker = req.app.get('worker');
+    worker.users.exists(req.params.id)
+        .then(reply => {
+            if (reply) {
+                next();
+            } else {
+                let error = new Error('User Not Found');
+                error.status = 404;
+                next(error);
+            }
+        })
+        .catch(next);
+}
+
+function articleExists(req, res, next) {
+    const worker = req.app.get('worker');
+    worker.articles.exists(req.params.article)
+        .then(reply => {
+            if (reply) {
+                next();
+            } else {
+                let error = new Error('Article Not Found');
+                error.status = 404;
+                next(error);
+            }
+        })
         .catch(next);
 }
 

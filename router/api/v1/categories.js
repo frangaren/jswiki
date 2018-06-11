@@ -10,19 +10,24 @@ const router = express.Router();
 
 router.get('/', listCategories);
 
-router.get('/:parent/children', listChildren);
+router.get('/:id/children', categoryExists);
+router.get('/:id/children', listChildren);
 
 router.post('/', logged);
 router.post('/', createCategory);
 
+router.get('/:id', categoryExists);
 router.get('/:id', retrieveCategory);
 
+router.get('/:id/articles', categoryExists);
 router.get('/:id/articles', retrieveArticles);
 
 router.patch('/:id', logged);
+router.patch('/:id', categoryExists);
 router.patch('/:id', updateCategory);
 
 router.delete('/:id', logged);
+router.delete('/:id', categoryExists);
 router.delete('/:id', deleteCategory);
 
 function listCategories(req, res, next) {
@@ -34,7 +39,7 @@ function listCategories(req, res, next) {
 
 function listChildren(req, res, next) {
     const worker = req.app.get('worker');
-    const parent = (req.params.parent === 'root') ? null : req.params.parent;
+    const parent = (req.params.id === 'root') ? null : req.params.id;
     worker.categories.listChildren(parent)
         .then(res.json.bind(res))
         .catch(next);
@@ -79,6 +84,23 @@ function deleteCategory(req, res, next) {
         .catch(next);
 }
 
-module.exports = router;
+function categoryExists(req, res, next) {
+    const worker = req.app.get('worker');
+    if (req.params.id === 'root') {
+        next();
+        return;
+    }
+    worker.categories.exists(req.params.id)
+        .then(reply => {
+            if (reply) {
+                next();
+            } else {
+                let error = new Error('Category Not Found');
+                error.status = 404;
+                next(error);
+            }
+        })
+        .catch(next);
+}
 
 module.exports = router;

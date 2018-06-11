@@ -66,3 +66,8 @@ exports.delete = async function (id) {
     await Historic.find({ author: id }).remove().exec();
     return user;
 }
+
+exports.exists = async function (id) {
+    const user = await User.findById(id).exec();
+    return user !== null;
+}

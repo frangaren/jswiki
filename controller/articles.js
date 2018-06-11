@@ -63,3 +63,8 @@ exports.delete = async function (id) {
     }
     return article;
 }
+
+exports.exists = async function (id) {
+    const article = await Article.findById(id).exec();
+    return article !== null;
+}

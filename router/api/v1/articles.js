@@ -13,14 +13,18 @@ router.get('/', listArticles);
 router.post('/', logged);
 router.post('/', createArticle);
 
+router.get('/:id', articleExists);
 router.get('/:id', retrieveArticle);
 
+router.get('/:id/history', articleExists);
 router.get('/:id/history', retrieveHistory);
 
 router.patch('/:id', logged);
+router.patch('/:id', articleExists);
 router.patch('/:id', updateArticle);
 
 router.delete('/:id', logged);
+router.delete('/:id', articleExists);
 router.delete('/:id', deleteArticle);
 
 function listArticles(req, res, next) {
@@ -71,6 +75,19 @@ function deleteArticle(req, res, next) {
         .catch(next);
 }
 
-module.exports = router;
+function articleExists(req, res, next) {
+    const worker = req.app.get('worker');
+    worker.articles.exists(req.params.id)
+        .then(reply => {
+            if (reply) {
+                next();
+            } else {
+                let error = new Error('Article Not Found');
+                error.status = 404;
+                next(error);
+            }
+        })
+        .catch(next);
+}
 
 module.exports = router;
