@@ -30,22 +30,25 @@ Vue.component('profile', {
             <form class="edit three-offset six columns" v-if="editing" @submit="onSubmit">
                 <div class="name">
                     <label for="name">Nombre:</label>
-                    <input name="name" type="text" v-model="copy.name"></input>
+                    <input name="name" type="text" v-model="copy.name" required></input>
                 </div>
                 <div class="username">
                     <label for="username">Usuario:</label>
-                    <input name="username" type="text" v-model="copy.username">
+                    <input name="username" type="text" v-model="copy.username" required>
                     </input>
                 </div>
                 <div class="email">
                     <label for="email">Correo:</label>
-                    <input name="email" type="email" v-model="copy.email">
+                    <input name="email" type="email" v-model="copy.email" required>
                     </input>
                 </div>
                 <div class="password">
                     <label for="password">Contraseña:</label>
                     <input name="password" type="password" v-model="copy.password" >
                     </input>
+                </div>
+                <div class="error-message">
+                    {{error}}
                 </div>
                 <div class="text-align-center">
                     <button class="accent"
@@ -74,7 +77,8 @@ Vue.component('profile', {
             },
             favorites: [],
             editing: false,
-            auth: auth.state
+            auth: auth.state,
+            error: ''
         };
     },
     created: function () {
@@ -103,12 +107,12 @@ Vue.component('profile', {
         },
         onEditClick: function() {
             this.copyUser();
+            this.error = '';
             this.editing = true;
         },
         onSubmit: function(event) {
             this.patchDatabase();
             event.preventDefault();
-            this.editing = false;
         },
         copyUser: function() {
             this.copy.name = this.user.name;
@@ -118,8 +122,18 @@ Vue.component('profile', {
         },
         patchDatabase: function() {
             axios.patch(`/api/v1/users/${this.$route.params.id}`, this.copy)
-                .then(res => this.user = res.data)
-                .catch(handleError);
+                .then(res => {
+                    this.user = res.data;
+                    this.editing = false;
+                })
+                .catch(error => {
+                    if (error.response.status == 409 ||
+                        error.response.status == 422) {
+                        this.error = error.response.data.message;
+                    } else {
+                        handleError(error);
+                    }
+                });
         }
     }
 });

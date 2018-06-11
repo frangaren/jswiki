@@ -168,7 +168,7 @@ function articleExists(req, res, next) {
 }
 
 function requireUsername(req, res, next) {
-    if (!('username' in req.body)) {
+    if (!('username' in req.body) || req.body.username.length <= 0) {
         let error = new Error('El usuario es obligatorio.');
         error.status = 422;
         next(error);
@@ -178,7 +178,7 @@ function requireUsername(req, res, next) {
 }
 
 function requireEmail(req, res, next) {
-    if (!('email' in req.body)) {
+    if (!('email' in req.body) || req.body.email.length <= 0) {
         let error = new Error('El correo es obligatorio.');
         error.status = 422;
         next(error);
@@ -188,7 +188,7 @@ function requireEmail(req, res, next) {
 }
 
 function requireName(req, res, next) {
-    if (!('name' in req.body)) {
+    if (!('name' in req.body) || req.body.name.length <= 0) {
         let error = new Error('El nombre es obligatorio.');
         error.status = 422;
         next(error);
@@ -198,7 +198,7 @@ function requireName(req, res, next) {
 }
 
 function requirePassword(req, res, next) {
-    if (!('password' in req.body)) {
+    if (!('password' in req.body) || req.body.password.length <= 0) {
         let error = new Error('La contraseña es obligatoria.');
         error.status = 422;
         next(error);
@@ -208,7 +208,7 @@ function requirePassword(req, res, next) {
 }
 
 function requireArticle(req, res, next) {
-    if (!('article' in req.body)) {
+    if (!('article' in req.body) || req.body.article.length <= 0) {
         let error = new Error('El artículo es obligatorio.');
         error.status = 422;
         next(error);

@@ -4,21 +4,21 @@ Vue.component('register', {
             <form class="neutral" @submit="onSubmit">
                 <div>
                     <label for="name">Nombre:</label>
-                    <input name="name" type="text" v-model="user.name"/>
+                    <input name="name" type="text" v-model="user.name" required/>
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input name="email" type="email" v-model="user.email"/>
+                    <input name="email" type="email" v-model="user.email" required/>
                 </div>
                 <div>
                     <label for="username">Usuario:</label>
-                    <input name="username" type="text" v-model="user.username"/>
+                    <input name="username" type="text" v-model="user.username" required/>
                 </div>
                 <div>
                     <label for="password">Contraseña:</label>
-                    <input type="password" v-model="user.password"/>
+                    <input type="password" v-model="user.password" required/>
                 </div>
-                <div class="error">
+                <div class="error-message">
                     {{error}}
                 </div>
                 <div class="controls">
@@ -48,7 +48,12 @@ Vue.component('register', {
                     router.push('/');
                 })
                 .catch(error => {
-                    handleError(error);
+                    if (error.response.status == 409 ||
+                        error.response.status == 422) {
+                        this.error = error.response.data.message;
+                    } else {
+                        handleError(error);
+                    }
                 });
             event.preventDefault();
         }

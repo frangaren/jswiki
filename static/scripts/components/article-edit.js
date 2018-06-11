@@ -1,6 +1,9 @@
 Vue.component('article-edit', {
     template: `
         <div class="article-edit container">
+            <div class="error-message">
+                {{error}}
+            </div>
             <article-editor v-model="article" @input="onSave"/>
         </div>
     `,
@@ -10,7 +13,8 @@ Vue.component('article-edit', {
                 topic: 'Nuevo artículo',
                 body: '',
                 categories: []
-            }
+            },
+            error: ''
         }
     },
     created: function () {
@@ -34,7 +38,14 @@ Vue.component('article-edit', {
                     this.article = res.data;
                     router.push(`/article/${this.article._id}`);
                 })
-                .catch(handleError);
+                .catch(error => {
+                    if (error.response.status == 409 ||
+                        error.response.status == 422) {
+                        this.error = error.response.data.message;
+                    } else {
+                        handleError(error);
+                    }
+                });
         }
     }
 });

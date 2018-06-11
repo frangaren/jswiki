@@ -7,6 +7,9 @@ Vue.component('new-category-modal', {
             <h3 slot="header">Nueva categoría</h3>
             <div slot="body">
                 <input type="text" placeholder="Nombre" v-model="category.name"/>
+                <div class="error-message">
+                    {{error}}
+                </div>
             </div>
             <div slot="footer">
                 <button class="primary simple" @click="$emit('close')">Cancelar</button>
@@ -19,7 +22,8 @@ Vue.component('new-category-modal', {
             category: {
                 parent: '',
                 name: ''
-            }
+            },
+            error: ''
         };
     },
     watch: {
@@ -38,7 +42,14 @@ Vue.component('new-category-modal', {
                     this.$emit('create', res.data);
                     this.$emit('close');
                 })
-                .catch(handleError);
+                .catch(error => {
+                    if (error.response.status == 409 ||
+                        error.response.status == 422) {
+                        this.error = error.response.data.message;
+                    } else {
+                        handleError(error);
+                    }
+                });
         }
     }
 });

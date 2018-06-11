@@ -87,7 +87,7 @@ function articleExists(req, res, next) {
             if (reply) {
                 next();
             } else {
-                let error = new Error('Article Not Found');
+                let error = new Error('El artículo no existe.');
                 error.status = 404;
                 next(error);
             }
@@ -96,8 +96,8 @@ function articleExists(req, res, next) {
 }
 
 function requireTopic(req, res, next) {
-    if (!('topic' in req.body)) {
-        let error = new Error('Topic Not Provided');
+    if (!('topic' in req.body) || req.body.topic.length <= 0) {
+        let error = new Error('El tema es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -106,8 +106,8 @@ function requireTopic(req, res, next) {
 }
 
 function requireBody(req, res, next) {
-    if (!('body' in req.body)) {
-        let error = new Error('Body Not Provided');
+    if (!('body' in req.body) || req.body.body.length <= 0) {
+        let error = new Error('El cuerpo es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -117,7 +117,7 @@ function requireBody(req, res, next) {
 
 function requireCategories(req, res, next) {
     if (!('categories' in req.body)) {
-        let error = new Error('Categories Not Provided');
+        let error = new Error('Las categorías son obligatorias.');
         error.status = 422;
         next(error);
     } else {
@@ -144,7 +144,7 @@ function validateCategories(req, res, next) {
                 if (reply) {
                     next();
                 } else {
-                    let error = new Error('La categoría padre no existe.');
+                    let error = new Error('Alguna de las categorías no existe.');
                     error.status = 422;
                     next(error);
                 }

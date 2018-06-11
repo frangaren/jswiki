@@ -10,7 +10,7 @@ Vue.component('login', {
                     <label for="password">Contraseña:</label>
                     <input type="password" v-model="user.password"/>
                 </div>
-                <div class="error">
+                <div class="error-message">
                     {{error}}
                 </div>
                 <div class="controls">
@@ -39,8 +39,10 @@ Vue.component('login', {
                     router.push('/');
                 })
                 .catch(error => {
-                    if (error.response.status === 400) {
-                        this.error = error.response.data.error_description;
+                    if (error.response.status === 400 ||
+                        error.response.status == 409 ||
+                        error.response.status == 422) {
+                        this.error = error.response.data.message;
                     } else {
                         handleError(error);
                     }

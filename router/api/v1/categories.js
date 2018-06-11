@@ -110,7 +110,7 @@ function categoryExists(req, res, next) {
 }
 
 function requireName(req, res, next) {
-    if (!('name' in req.body)) {
+    if (!('name' in req.body) || req.body.name.length <= 0) {
         let error = new Error('El nombre es obligatorio.');
         error.status = 422;
         next(error);
@@ -120,7 +120,7 @@ function requireName(req, res, next) {
 }
 
 function requireParent(req, res, next) {
-    if (!('parent' in req.body)) {
+    if (!('parent' in req.body) || req.body.parent.length <= 0) {
         let error = new Error('La categoría padre es obligatoria.');
         error.status = 422;
         next(error);

@@ -33,7 +33,7 @@ function authenticate(req, res, next) {
             } else { // Wrong credentials
                 const error = {
                     error: 'invalid_grant',
-                    error_description: 'Invalid username and password.'
+                    message: 'Usuario o contraseña inválido.'
                 };
                 res.status(400).json(error);
             }
@@ -52,7 +52,7 @@ function refresh(req, res, next) {
             } else { // Wrong credentials
                 const error = {
                     error: 'invalid_grant',
-                    error_description: 'Invalid refresh token.'
+                    message: 'Token de refresco inválido.'
                 };
                 res.status(400).json(error);
             }
@@ -71,7 +71,7 @@ function check(req, res, next) {
             } else { // Wrong credentials
                 const error = {
                     error: 'invalid_grant',
-                    error_description: 'Invalid token.'
+                    message: 'Token inválido.'
                 };
                 res.status(400).json(error);
             }
@@ -80,8 +80,8 @@ function check(req, res, next) {
 }
 
 function requireUsername(req, res, next) {
-    if (!('username' in req.body)) {
-        let error = new Error('Username Not Provided');
+    if (!('username' in req.body) || req.body.username.length <= 0) {
+        let error = new Error('El usuario es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -90,8 +90,8 @@ function requireUsername(req, res, next) {
 }
 
 function requirePassword(req, res, next) {
-    if (!('password' in req.body)) {
-        let error = new Error('Password Not Provided');
+    if (!('password' in req.body) || req.body.password.length <= 0) {
+        let error = new Error('La contraseña es obligatoria.');
         error.status = 422;
         next(error);
     } else {
@@ -100,8 +100,8 @@ function requirePassword(req, res, next) {
 }
 
 function requireAccessToken(req, res, next) {
-    if (!('access_token' in req.body)) {
-        let error = new Error('AccessToken Not Provided');
+    if (!('access_token' in req.body) || req.body.access_token.length <= 0) {
+        let error = new Error('El token de acceso es obligatorio.');
         error.status = 422;
         next(error);
     } else {
@@ -110,8 +110,8 @@ function requireAccessToken(req, res, next) {
 }
 
 function requireRefreshToken(req, res, next) {
-    if (!('refresh_token' in req.body)) {
-        let error = new Error('RefreshToken Not Provided');
+    if (!('refresh_token' in req.body) || req.body.refresh_token <= 0) {
+        let error = new Error('El token de refresco es obligatorio.');
         error.status = 422;
         next(error);
     } else {

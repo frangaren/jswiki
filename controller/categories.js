@@ -76,7 +76,7 @@ exports.validateName = async function(name) {
         return {
             valid: false,
             status: 409,
-            tip: 'Ya existe una cateogría con ese nombre.'
+            tip: 'Ya existe una categoría con ese nombre.'
         };
     } else {
         return {
