@@ -4,6 +4,7 @@ const path = require('path');
 
 const Category = require(path.join(__dirname, '..', 'model', 'category.js'));
 const Article = require(path.join(__dirname, '..', 'model', 'article.js'));
+const Historic = require(path.join(__dirname, '..', 'model', 'historic.js'));
 
 exports.list = async function () {
     const categories = await Category.find().sort('name').exec();
@@ -48,5 +49,14 @@ exports.update = async function (id, newValues) {
 
 exports.delete = async function (id) {
     const category = await Category.findByIdAndRemove(id).exec();
+    const articles = await Article.find({categories: id});
+    for (let article of articles) {
+        article.categories.splice(article.categories.indexOf(id), 1);
+        await article.save();
+    }
+    const children = await Category.find({parent: id}).exec();
+    for (let child of children) {
+        await exports.delete(child._id);
+    }
     return category;
 }
